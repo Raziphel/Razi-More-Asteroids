@@ -1,0 +1,27 @@
+name: Finalize asteroid art for first release
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/prepare_release_art.py'
+      - '.github/workflows/one-shot-release-art.yml'
+permissions:
+  contents: write
+jobs:
+  prepare-release-art:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crop existing icons and thumbnail without replacing artwork
+        run: python3 tools/prepare_release_art.py
+      - name: Validate and package 1.0.0
+        run: python3 tools/release_check.py
+      - name: Commit corrected binary assets and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add graphics/icons thumbnail.png
+          git rm .github/workflows/one-shot-release-art.yml
+          git diff --cached --check
+          git commit -m "fix(assets): finalize Factorio 2.1 release icon dimensions"
+          git push origin HEAD:main

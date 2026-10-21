@@ -1,6 +1,6 @@
 {
   "name": "razi-more-asteroids",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "title": "Razi More Asteroids",
   "author": "Razi's Realm (based on More Asteroids by spartanlaser32)",
   "factorio_version": "2.1",
@@ -11,6 +11,6 @@
     "! More-Asteroids",
     "(?) nulls-k2so-tweaks"
   ],
-  "description": "Space Age asteroids, optional K2SO crusher interoperability and advanced orbital resource recovery.",
+  "description": "Six new Space Age asteroid families and orbital resources, with optional Krastorio 2 Spaced Out processing.",
   "homepage": "https://github.com/Raziphel/Razi-More-Asteroids"
 }

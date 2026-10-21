@@ -13,7 +13,7 @@ Standalone Factorio **2.1 Space Age** asteroid mod, based on [More Asteroids](ht
 | Chemical | Ammonia, fluorine and lithium brine | Mineral-water recovery |
 | Crystalline | Stone, ice and trace calcite | Sand, quartz and trace rare-metal ore |
 
-Crystalline replaces Petrified, including its prototypes and artwork. Back up saves containing the retired Petrified asteroid family before upgrading. All 72 active original sprites/icons have been resource-color-graded without changing original silhouettes, frames or alpha.
+Crystalline replaces Petrified, including its prototypes and artwork. Back up saves containing the retired Petrified asteroid family before upgrading. The 30 in-world sprites retain their original silhouettes, while all 42 UI icons use correctly sized 64×64 crops of the original artwork. The existing thumbnail is framed at 144×144.
 
 ## Vanilla Space Age compatibility
 
@@ -61,9 +61,11 @@ Do not install the original More Asteroids simultaneously. Do not add another qu
 
 ## Build and verification
 
-Package using the Python helper in tools/package_fork.py. Test with tools/smoke.py, tools/test_space_age_compat.py, tools/test_k2so_integration.py, and tools/test_asteroid_art.py. These structural tests do not replace actual Factorio 2.1 startup tests in (1) Space Age alone and (2) Space Age + K2SO.
+**First release candidate: 1.0.0.** Run `python3 tools/release_check.py` to execute all static tests and create a deterministic ZIP at `dist/razi-more-asteroids_1.0.0.zip`. The archive includes only mod-loading files, localized text, licensed original artwork, a corrected thumbnail, and a Factorio-formatted changelog.
 
-Not yet verified as a public Mod Portal release.
+**Manual engine tests are still required before publication:** Launch Factorio 2.1 with (1) Space Age alone and (2) Space Age + K2SO; verify recipes, machines, fluids and sprites. See `docs/RELEASE_CHECKLIST.md` for the full plan. The Mod Portal description is drafted in `docs/MOD_PORTAL.md`.
+
+The candidate has **not** yet been published to the Factorio Mod Portal.
 
 ## Credit and license
 

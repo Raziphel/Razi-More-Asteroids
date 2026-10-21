@@ -35,13 +35,9 @@ for _,family in ipairs(families) do
           seen[name] = true
         end
       end
-      append(recipe.category)
       for _,cat in ipairs(recipe.categories or {}) do append(cat) end
-      for _,cat in ipairs(recipe.additional_categories or {}) do append(cat) end
       append("kr-crushing")
       recipe.categories = cats
-      recipe.category = nil
-      recipe.additional_categories = nil
       count = count + 1
     end
   end
@@ -49,8 +45,6 @@ end
 local salvage=recipes["razi-orbital-scrap-sorting"]
 if salvage and not contains_fluid(salvage) then
   salvage.categories={"crushing","kr-crushing"}
-  salvage.category=nil
-  salvage.additional_categories=nil
   count=count+1
 end
 if type(log) == "function" then

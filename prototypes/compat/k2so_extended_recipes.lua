@@ -40,7 +40,7 @@ local function register(name,icon,order,ingredients,results,seconds)
     data:extend({{
       type="recipe",name=name,enabled=false,
       icon="__razi-more-asteroids__/graphics/icons/"..icon..".png",
-      icon_size=64,category="crushing",subgroup="space-crushing",
+      icon_size=64,categories={"crushing"},subgroup="space-crushing",
       order=order,energy_required=seconds,
       ingredients=ingredients,results=results,
       auto_recycle=false,allow_decomposition=false,

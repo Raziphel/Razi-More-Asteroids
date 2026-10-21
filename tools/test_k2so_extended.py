@@ -9,7 +9,7 @@ import json
 root=Path(__file__).resolve().parents[1]
 read=lambda path:(root/path).read_text()
 meta=json.loads(read("info.json"))
-assert meta["version"]=="0.7.0"
+assert meta["version"]=="1.0.0"
 assert any(s.startswith("? Krastorio2-spaced-out") for s in meta["dependencies"])
 final=read("data-final-fixes.lua")
 assert 'mods["Krastorio2-spaced-out"]' in final
@@ -45,7 +45,7 @@ assert 'cat == "kr-crushing"' in crusher
 assert 'component.type == "fluid"' in crusher
 assert 'not contains_fluid(recipe)' in crusher
 assert 'recipe.categories = cats' in crusher
-assert 'recipe.category = nil' in crusher
+assert 'recipe.category = nil' not in crusher
 assert 'append("kr-crushing")' in crusher
 assert '"razi-orbital-scrap-sorting"' in crusher
 assert 'data.raw["recipe-category"]' in crusher

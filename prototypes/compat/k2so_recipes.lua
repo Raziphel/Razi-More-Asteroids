@@ -38,7 +38,7 @@ local function add(name,icon,order,ingredients,results,energy)
     data:extend({{
       type="recipe",name=name,
       icon="__razi-more-asteroids__/graphics/icons/"..icon..".png",
-      icon_size=64,category="crushing",subgroup="space-crushing",
+      icon_size=64,categories={"crushing"},subgroup="space-crushing",
       order=order,enabled=false,auto_recycle=false,
       energy_required=energy,ingredients=ingredients,results=results,
       allow_productivity=true,allow_decomposition=false

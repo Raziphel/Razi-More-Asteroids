@@ -19,7 +19,7 @@ source=(root/"data-updates.lua").read_text()
 assert 'require("prototypes.compat.k2so_fluids")' in source
 assert 'unlock("advanced-asteroid-processing"' in source
 assert 'productivity.effects' in source
-assert not (root/"control.lua").read_text().strip().endswith("script.on_event")
+assert not (root/"control.lua").exists(), "Prototype-only mod must not ship an empty runtime script"
 for path in root.glob("*.lua"):
   content=path.read_text()
   assert "__More-Asteroids__" not in content, str(path)

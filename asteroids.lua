@@ -1,23 +1,3 @@
-function create_asteroid_chunk_parameter(number)
-    data:extend(
-    {
-      {
-        type = "asteroid-chunk",
-        name = "parameter-" .. number,
-        icon = "__base__/graphics/icons/parameter/parameter-" .. number .. ".png",
-        localised_name = {"parameter-x", tostring(number)},
-        subgroup = "parameters",
-        order = "a",
-        parameter = true
-      }
-    })
-  end
-
-  for n = 0, 9 do
-    create_asteroid_chunk_parameter(n)
-  end
-
-
   -- damage-type.lua must run first.
   --[[
   small asteroids: use lasers because they are free
@@ -240,7 +220,7 @@ function create_asteroid_chunk_parameter(number)
 
   local letter = {"a","b","c","d","e"}
 
-  --temporary fix to get some graphics working so that I can differentiate them during debugging, will remove later if i learn how to do normals, roughness.
+  -- Source asteroid tints were retained; custom normals use stock Space Age material maps.
   --color textures for each asteroid are simply copies of each mapped out asteroid with different basic filter options to distinguish them
   --the filters were done in Windows base Photos app
   --Rock: Brightness, Exposure, Contrast, Shadow, and Saturation all -50
@@ -415,7 +395,3 @@ function create_asteroid_chunk_parameter(number)
       }
     end
   end
-
-  -- chunk backlight overrides
-  data.raw["asteroid-chunk"]["metallic-asteroid-chunk"].graphics_set.lights[2] = { color = {0.85,0.5,0.4}, direction = {-1,-45,0.1} }
-  data.raw["asteroid-chunk"]["oxide-asteroid-chunk"].graphics_set.lights[2] = { color = {0.0,0.55,0.65}, direction = {-1,-1,0.1} }
