@@ -1,37 +1,7 @@
 --File to alter data in base/space-age game files
 
---Adding Fluidboxes to the asteroid crusher
-local crusher = data.raw["assembling-machine"]["crusher"]
-crusher.fluid_boxes = {
-  {
-    production_type = "input",
-    volume = 1000,
-    pipe_connections = {
-      { flow_direction="input-output", direction = defines.direction.west, position = {-0.5, -1} },
-      { flow_direction="input-output", direction = defines.direction.west, position = {-0.5, 1} },
-      { flow_direction="input-output", direction = defines.direction.east, position = {0.5, 0} }}
-  },
-  {
-    production_type = "output",
-    volume = 1000,
-    pipe_connections = {
-      { flow_direction="output", direction = defines.direction.west, position = {-0.5, 0} }}
-  },
-  {
-    production_type = "output",
-    volume = 1000,
-    pipe_connections = {
-      { flow_direction="output", direction = defines.direction.east, position = {0.5, -1} }}
-  },
-  {
-    production_type = "output",
-    volume = 1000,
-    pipe_connections = {
-      { flow_direction="output", direction = defines.direction.east, position = {0.5, 1} }}
-  }
-}
-
-crusher.fluid_boxes_off_when_no_fluid_recipe = true;
+-- Preserve pre-existing crusher fluidboxes and support K2SO machines.
+require("prototypes.compat.k2so_fluids")
 
 --adding the asteroid spawn definitions to the original data
 --had to comment out the code block that added definitions to the connections due to some NIL error
@@ -39,7 +9,7 @@ crusher.fluid_boxes_off_when_no_fluid_recipe = true;
 local planets = data.raw["planet"]
 local locations = data.raw["space-location"]
 local connections = data.raw["space-connection"]
-local more_asteroid_util = require("__More-Asteroids__.more-asteroids-spawn-definitions")
+local more_asteroid_util = require("__razi-more-asteroids__.more-asteroids-spawn-definitions")
 
 local planet_stuffmapping = {
   ["nauvis"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.1),
@@ -123,37 +93,53 @@ end
 --end
 
 
---add recipes to tech research
-table.insert(data.raw["technology"]["space-platform"].effects, {type = "unlock-recipe", recipe = "uranium-asteroid-crushing"})
-table.insert(data.raw["technology"]["space-platform"].effects, {type = "unlock-recipe", recipe = "petrified-asteroid-crushing"})
-
-table.insert(data.raw["technology"]["planet-discovery-vulcanus"].effects, {type = "unlock-recipe", recipe = "rock-asteroid-crushing"})
-table.insert(data.raw["technology"]["planet-discovery-fulgora"].effects, {type = "unlock-recipe", recipe = "scrap-asteroid-crushing"})
-table.insert(data.raw["technology"]["planet-discovery-gleba"].effects, {type = "unlock-recipe", recipe = "organic-asteroid-crushing"})
-
-table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {type = "unlock-recipe", recipe = "advanced-uranium-asteroid-crushing"})
-table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {type = "unlock-recipe", recipe = "advanced-petrified-asteroid-crushing"})
-table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {type = "unlock-recipe", recipe = "advanced-rock-asteroid-crushing"})
-table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {type = "unlock-recipe", recipe = "advanced-scrap-asteroid-crushing"})
-table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {type = "unlock-recipe", recipe = "advanced-organic-asteroid-crushing"})
-
-table.insert(data.raw["technology"]["planet-discovery-aquilo"].effects, {type = "unlock-recipe", recipe = "chemical-asteroid-crushing"})
-table.insert(data.raw["technology"]["planet-discovery-aquilo"].effects, {type = "unlock-recipe", recipe = "advanced-chemical-asteroid-crushing"})
-
-
-
-local recipes = {"uranium-asteroid-crushing", 
-"rock-asteroid-crushing", 
-"scrap-asteroid-crushing",
-"organic-asteroid-crushing",
-"petrified-asteroid-crushing",
-"chemical-asteroid-crushing",
-"advanced-uranium-asteroid-crushing",
-"advanced-petrified-asteroid-crushing",
-"advanced-rock-asteroid-crushing",
-"advanced-scrap-asteroid-crushing",
-"advanced-organic-asteroid-crushing",
-"advanced-chemical-asteroid-crushing"}
-for i=1, 12 do
-  table.insert(data.raw["technology"]["asteroid-productivity"].effects, {type = "change-recipe-productivity", recipe = recipes[i], change = 0.1})
+-- Guard research unlocks from renamed/missing K2SO and Razi Protocol techs.
+local function unlock(techname,recipe)
+  local tech=data.raw.technology[techname]
+  if not tech or not data.raw.recipe[recipe] then return false end
+  tech.effects=tech.effects or {}
+  for _,effect in pairs(tech.effects) do
+    if effect.type=="unlock-recipe" and effect.recipe==recipe then return true end
+  end
+  tech.effects[#tech.effects+1]={type="unlock-recipe",recipe=recipe}
+  return true
+end
+local basic={
+  ["uranium-asteroid-crushing"]="space-platform",
+  ["petrified-asteroid-crushing"]="space-platform",
+  ["rock-asteroid-crushing"]="planet-discovery-vulcanus",
+  ["scrap-asteroid-crushing"]="planet-discovery-fulgora",
+  ["organic-asteroid-crushing"]="planet-discovery-gleba",
+  ["chemical-asteroid-crushing"]="planet-discovery-aquilo"
+}
+for recipe,techname in pairs(basic) do
+  if not unlock(techname,recipe) then
+    unlock("advanced-asteroid-processing",recipe)
+  end
+end
+for _,material in ipairs({"uranium","petrified","rock","scrap","organic"}) do
+  unlock("advanced-asteroid-processing","advanced-"..material.."-asteroid-crushing")
+end
+if not unlock("planet-discovery-aquilo","advanced-chemical-asteroid-crushing") then
+  unlock("advanced-asteroid-processing","advanced-chemical-asteroid-crushing")
+end
+local productivity=data.raw.technology["asteroid-productivity"]
+if productivity then
+  productivity.effects=productivity.effects or {}
+  for _,material in ipairs({"uranium","petrified","rock","scrap","organic","chemical"}) do
+    for _,prefix in ipairs({"","advanced-"}) do
+      local recipe=prefix..material.."-asteroid-crushing"
+      if data.raw.recipe[recipe] then
+        local duplicate=false
+        for _,effect in ipairs(productivity.effects) do
+          if effect.type=="change-recipe-productivity" and effect.recipe==recipe then
+            duplicate=true; break
+          end
+        end
+        if not duplicate then productivity.effects[#productivity.effects+1]={
+          type="change-recipe-productivity",recipe=recipe,change=0.1
+        } end
+      end
+    end
+  end
 end

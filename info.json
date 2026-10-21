@@ -1,9 +1,18 @@
 {
-  "name": "More-Asteroids",
-  "version": "0.4.3",
-  "title": "More Asteroids",
-  "author": "spartanlaser32",
-  "factorio_version": "2.0",
-  "dependencies": [ "base >= 2.0", "space-age", "(?) Cerys-Moon-of-Fulgora", "(?) planet-muluna", "(?) maraxsis"],
-  "description": "This mod adds more asteroid types into the game."
+  "name": "razi-more-asteroids",
+  "version": "0.5.0",
+  "title": "Razi More Asteroids: K2SO Edition",
+  "author": "Razi's Realm (based on More Asteroids by spartanlaser32)",
+  "factorio_version": "2.1",
+  "dependencies": [
+    "base >= 2.1.20",
+    "space-age >= 2.1.20",
+    "Krastorio2-spaced-out >= 2.0.17",
+    "! More-Asteroids",
+    "(?) Cerys-Moon-of-Fulgora",
+    "(?) planet-muluna",
+    "(?) maraxsis"
+  ],
+  "description": "K2SO-focused More Asteroids fork with guarded crushers, six resource families, and Razi Protocol compatibility.",
+  "homepage": "https://github.com/spartanlaser32/More-Asteroids"
 }

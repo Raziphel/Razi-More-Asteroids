@@ -266,7 +266,7 @@ function create_asteroid_chunk_parameter(number)
     {
       color_texture =
       {
-        filename = "__More-Asteroids__/graphics/entity/asteroid/".. asteroid_type .."/"..asteroid_sizes[size].."/".."asteroid-" .. asteroid_type .. "-" .. asteroid_sizes[size] .. "-colour-" .. suffix .. ".png",
+        filename = "__razi-more-asteroids__/graphics/entity/asteroid/".. asteroid_type .."/"..asteroid_sizes[size].."/".."asteroid-" .. asteroid_type .. "-" .. asteroid_sizes[size] .. "-colour-" .. suffix .. ".png",
         size =  sizes_resolution[size][1],
         scale = scale
       },
@@ -391,7 +391,7 @@ function create_asteroid_chunk_parameter(number)
           name = asteroid_name,
           overkill_fraction = asteroid_size_name ~= "chunk" and 0.01 or nil,
           localised_description = {"entity-description."..asteroid_type.."-asteroid"},
-          icon = "__More-Asteroids__/graphics/icons/"..asteroid_name..".png",
+          icon = "__razi-more-asteroids__/graphics/icons/"..asteroid_name..".png",
           icon_size = 64,
           selection_box = asteroid_size_name ~= "chunk" and {{-selection_radius, -selection_radius}, {selection_radius, selection_radius}} or nil,
           collision_box = asteroid_size_name ~= "chunk" and {{-collision_radius, -collision_radius}, {collision_radius, collision_radius}} or nil,

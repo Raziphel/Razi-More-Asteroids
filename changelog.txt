@@ -1,3 +1,12 @@
+Version: 0.5.0
+Date: 21. 10. 2026
+  Features:
+    - First K2SO-targeted fork, with new mod identity and original MIT attributions.
+    - Guarded K2SO rare-metal recovery and RP3 planet asteroid ecology.
+  Compatibility:
+    - Factorio 2.1 and K2SO required; avoid duplicate More Asteroids installs.
+    - Preserve existing crusher fluid boxes and research effects.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.3
 Date: 18. 03. 2026
   Balancing:

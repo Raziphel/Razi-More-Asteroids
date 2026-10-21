@@ -1,0 +1,16 @@
+data:extend({
+  {
+    type="bool-setting",
+    name="razi-more-asteroids-extended-routes",
+    setting_type="startup",
+    default_value=true,
+    order="a"
+  },
+  {
+    type="bool-setting",
+    name="razi-more-asteroids-k2so-recovery",
+    setting_type="startup",
+    default_value=true,
+    order="b"
+  }
+})

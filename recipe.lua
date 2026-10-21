@@ -3,7 +3,7 @@ data:extend(
     {
         type = "recipe",
         name = "uranium-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/uranium-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/uranium-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -26,7 +26,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-uranium-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-uranium-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-uranium-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -51,7 +51,7 @@ data:extend(
     {
         type = "recipe",
         name = "rock-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/rock-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/rock-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -73,7 +73,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-rock-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-rock-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-rock-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -96,7 +96,7 @@ data:extend(
     {
         type = "recipe",
         name = "chemical-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/chemical-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/chemical-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -118,7 +118,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-chemical-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-chemical-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-chemical-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -142,7 +142,7 @@ data:extend(
     {
         type = "recipe",
         name = "scrap-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/scrap-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/scrap-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -164,7 +164,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-scrap-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-scrap-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-scrap-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -186,7 +186,7 @@ data:extend(
     {
         type = "recipe",
         name = "organic-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/organic-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/organic-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -208,7 +208,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-organic-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-organic-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-organic-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -235,7 +235,7 @@ data:extend(
     {
         type = "recipe",
         name = "petrified-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/petrified-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/petrified-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -258,7 +258,7 @@ data:extend(
     {
         type = "recipe",
         name = "advanced-petrified-asteroid-crushing",
-        icon = "__More-Asteroids__/graphics/icons/advanced-petrified-asteroid-crushing.png",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-petrified-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",

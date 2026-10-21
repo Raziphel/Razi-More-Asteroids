@@ -9,7 +9,7 @@ data:extend({
     {
         type = "item",
         name = "rock-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/rock-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/rock-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.rock_inventory_move,
@@ -22,7 +22,7 @@ data:extend({
       {
         type = "item",
         name = "uranium-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/uranium-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/uranium-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.rock_inventory_move,
@@ -35,7 +35,7 @@ data:extend({
       {
         type = "item",
         name = "scrap-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/scrap-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/scrap-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.rock_inventory_move,
@@ -48,7 +48,7 @@ data:extend({
       {
         type = "item",
         name = "organic-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/organic-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/organic-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.sulfur_inventory_move,
@@ -61,7 +61,7 @@ data:extend({
       {
         type = "item",
         name = "petrified-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/petrified-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/petrified-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.sulfur_inventory_move,
@@ -74,7 +74,7 @@ data:extend({
       {
         type = "item",
         name = "chemical-asteroid-chunk",
-        icon = "__More-Asteroids__/graphics/icons/chemical-asteroid-chunk.png",
+        icon = "__razi-more-asteroids__/graphics/icons/chemical-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.sulfur_inventory_move,
