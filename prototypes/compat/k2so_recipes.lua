@@ -49,17 +49,17 @@ local function add(name,icon,order,ingredients,results,energy)
   })
 end
 
--- Raw rare-metal ORE, not processed rare metals. Existing K2SO refining
+-- Dense-metal chunks supply raw rare-metal ORE. Existing K2SO refining
 -- research, space-platform infrastructure and resource economics still apply.
-add("razi-orbital-rare-metal-recovery","advanced-rock-asteroid-crushing","b-a-d",
-  {item("rock-asteroid-chunk",2),fluid("sulfuric-acid",30)},
-  {item("kr-rare-metal-ore",1,0.35),item("stone",6)},4)
+add("razi-orbital-rare-metal-recovery","advanced-crystalline-asteroid-crushing","b-a-d",
+  {item("crystalline-asteroid-chunk",2),fluid("sulfuric-acid",30)},
+  {item("kr-rare-metal-ore",1,0.35),item("tungsten-ore",4)},4)
 
--- Concentrated crystal separation: trade quartz throughput and acid for
+-- Dense-metal ore leaching: trade chunk throughput and acid for
 -- a low but predictable source of K2SO rare-metal ore.
 add("razi-crystalline-ore-leaching","advanced-crystalline-asteroid-crushing","b-a-e",
   {item("crystalline-asteroid-chunk",3),fluid("sulfuric-acid",75)},
-  {item("kr-rare-metal-ore",1),item("kr-quartz",4)},6)
+  {item("kr-rare-metal-ore",1),item("tungsten-ore",8)},6)
 
 -- Uses nutrients, so the biomass output does not create a free cycle.
 add("razi-orbital-biomass-recovery","advanced-organic-asteroid-crushing","b-a-f",
@@ -68,5 +68,5 @@ add("razi-orbital-biomass-recovery","advanced-organic-asteroid-crushing","b-a-f"
 
 -- Supplement planetary mineral-water extraction; never replace it.
 add("razi-orbital-mineral-water-recovery","advanced-chemical-asteroid-crushing","b-a-g",
-  {item("chemical-asteroid-chunk",2),fluid("water",50)},
+  {item("halide-asteroid-chunk",2),fluid("water",50)},
   {fluid("kr-mineral-water",30),item("sulfur",2)},5)

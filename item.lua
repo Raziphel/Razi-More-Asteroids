@@ -85,3 +85,15 @@ data:extend({
         random_tint_color = item_tints.iron_rust
       }
 })
+
+-- New asteroid chunks; old family IDs remain intact for existing saves.
+for _, spec in ipairs({
+  {"halide", "chemical"},
+  {"electrostatic", "crystalline"}
+}) do
+  local proto = table.deepcopy(data.raw.item[spec[2] .. "-asteroid-chunk"])
+  proto.name = spec[1] .. "-asteroid-chunk"
+  proto.icon = "__razi-more-asteroids__/graphics/icons/" .. proto.name .. ".png"
+  proto.order = "a[asteroid]-" .. spec[1]
+  data:extend({proto})
+end

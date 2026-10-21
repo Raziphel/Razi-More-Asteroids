@@ -68,11 +68,8 @@ register("razi-orbital-oxygen-recovery","advanced-chemical-asteroid-crushing","b
   {item("chemical-asteroid-chunk",2),fluid("water",50)},
   {fluid("kr-oxygen",30),item("sulfur",2)},5)
 
--- Wet quartz separation as an alternative to the acid-intensive ore path.
-local sand = items["kr-sand"] and "kr-sand" or
-  (items["sand"] and "sand" or nil)
-if sand then
-  register("razi-orbital-quartz-washing","advanced-crystalline-asteroid-crushing","b-a-k",
-    {item("crystalline-asteroid-chunk",2),fluid("water",40)},
-    {item("kr-quartz",6),item(sand,4)},5)
-end
+-- Electrostatic ore separation: supports K2SO electronics without
+-- creating free science or replacing the K2SO silicon manufacturing line.
+register("razi-orbital-conductor-recovery","advanced-electrostatic-asteroid-crushing","b-a-k",
+  {item("electrostatic-asteroid-chunk",3),fluid("sulfuric-acid",40)},
+  {item("holmium-ore",4),item("kr-silicon",2)},6)

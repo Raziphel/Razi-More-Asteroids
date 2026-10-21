@@ -192,6 +192,14 @@
     }
   }
 
+  -- Two new families share the source mod's original geometry, with
+  -- individually recolored texture atlases. Existing six IDs stay stable.
+  asteroids_data.halide = table.deepcopy(asteroids_data.chemical)
+  asteroids_data.halide.order = "ce"
+  asteroids_data.electrostatic = table.deepcopy(asteroids_data.crystalline)
+  asteroids_data.electrostatic.order = "bf"
+  asteroids_data.electrostatic.shading_data.lights[2].color = {0.34,0.47,0.95}
+
   local collision_radiuses =
   {
     0.4, -- chunk
@@ -235,7 +243,9 @@
     ["uranium"] = "metallic",
     ["chemical"] = "oxide",
     ["organic"] = "carbonic",
-    ["crystalline"] = "oxide"
+    ["crystalline"] = "oxide",
+    ["halide"] = "oxide",
+    ["electrostatic"] = "oxide"
 
   }
 

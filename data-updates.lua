@@ -23,11 +23,13 @@ end
 -- If another mod removes a technology, use advanced asteroid processing.
 local basics = {
   {"uranium-asteroid-crushing", "space-platform"},
-  {"crystalline-asteroid-crushing", "space-platform"},
-  {"rock-asteroid-crushing", "planet-discovery-vulcanus"},
+  {"crystalline-asteroid-crushing", "planet-discovery-vulcanus"},
+  {"rock-asteroid-crushing", "space-platform"},
   {"scrap-asteroid-crushing", "planet-discovery-fulgora"},
   {"organic-asteroid-crushing", "planet-discovery-gleba"},
-  {"chemical-asteroid-crushing", "planet-discovery-aquilo"}
+  {"chemical-asteroid-crushing", "planet-discovery-aquilo"},
+  {"halide-asteroid-crushing", "planet-discovery-aquilo"},
+  {"electrostatic-asteroid-crushing", "planet-discovery-fulgora"}
 }
 for _, entry in ipairs(basics) do
   if not unlock(entry[2], entry[1]) then
@@ -35,10 +37,17 @@ for _, entry in ipairs(basics) do
   end
 end
 
-local families = {"uranium", "crystalline", "rock", "scrap", "organic", "chemical"}
+local families = {"uranium", "crystalline", "rock", "scrap", "organic", "chemical", "halide", "electrostatic"}
 for _, material in ipairs(families) do
   local name = "advanced-" .. material .. "-asteroid-crushing"
-  if material ~= "chemical" or not unlock("planet-discovery-aquilo", name) then
+  local planetary = {
+    crystalline = "planet-discovery-vulcanus",
+    electrostatic = "planet-discovery-fulgora",
+    chemical = "planet-discovery-aquilo",
+    halide = "planet-discovery-aquilo"
+  }
+  local research = planetary[material] or "advanced-asteroid-processing"
+  if not unlock(research, name) then
     unlock("advanced-asteroid-processing", name)
   end
 end

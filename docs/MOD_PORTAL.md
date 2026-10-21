@@ -1,36 +1,28 @@
-# Razi More Asteroids
+# Razi More Asteroids 1.1.0
 
-**Six new asteroid families to mine, process, and defend against in Factorio: Space Age.**
+**Eight new asteroid families for Factorio: Space Age.** Collect and defend against Radioactive, Lithic, Dense-Metal, Wreckage, Biogenic, Volatile, Halide and Electrostatic asteroids alongside Space Age's existing asteroid types.
 
-Space between planets no longer has to be just metallic, carbonic, and oxide asteroids. Razi More Asteroids adds **Uranium, Rock, Scrap, Organic, Chemical, and Crystalline** asteroid families, complete with collectible chunks, multiple hostile sizes, new crushing recipes, and resource-colored artwork built from the original sprites.
+Every custom family adds collectible chunks, hostile size variants, distinctive basic and advanced crushing, and updated original artwork.
 
-## What is included?
+## Eight industrial identities
 
-- **Six resource identities:** Radioactive uranium, stone and tungsten-bearing rock, recyclable scrap, alien organics, chemical feedstocks, and quartz-rich crystalline minerals.
-- **Full asteroid size progression:** Chunk, small, medium, big and huge variants, with defenses still needed for dangerous encounters.
-- **Space Age progression:** Recipes unlock through existing Space Age technologies and extend asteroid productivity research.
-- **Vanilla routes:** New asteroid populations on recognized Space Age planets and connections, without overriding existing asteroid spawns.
-- **Updated sprites:** The original mod artwork was retouched to suit its resources. Clean 64px icons and a square thumbnail, with no new AI-generated graphics.
-- **Configure it:** Switch off the added route populations and/or the optional K2SO specialty recipes.
+- **Radioactive:** Uranium ore and isotopes.
+- **Lithic:** Stone and calcite.
+- **Dense-Metal:** Tungsten ore and K2SO raw rare-metal ore recovery.
+- **Wreckage:** Recyclable scrap and K2SO component salvage.
+- **Biogenic:** Alien biological matter and K2SO biomass.
+- **Volatile:** Ammonia and K2SO hydrogen/oxygen recovery.
+- **Halide:** Fluorine, lithium brine, and K2SO mineral water.
+- **Electrostatic:** Holmium ore with K2SO silicon recovery.
 
-## Optional Krastorio 2: Spaced Out integration
+Asteroids spawn on relevant native Space Age routes and become more hazardous toward the outer system. Planet discovery research controls access to tungsten, holmium, and advanced chemistry.
 
-Install K2SO to enable quartz, sand, raw rare-metal ore, biomass, mineral-water, hydrogen, oxygen, and recovered component processing from asteroid chunks. Eight advanced recipes provide alternate orbital supply chains while keeping K2SO research and refining relevant.
+## Space Age + K2SO compatibility
 
-Compatible dry asteroid recipes can also run in K2SO crushers. Fluid processing stays in suitable Space Age crushers. **K2SO is optional**: Razi More Asteroids works with Space Age + RaziLib alone.
+Requires **Space Age 2.1.20+ and RAZI Library 1.3.1+**. Krastorio 2: Spaced Out is **optional**. With K2SO installed, eight additional orbital resource recipes integrate its processing chains and dry crusher machinery, without handing out free science or finished high-tier products.
 
-## Requirements
+The six previous internal prototype IDs remain stable for existing saves; the old Crystalline asteroid ID is now presented as Dense-Metal. Back up saves before updating because resource outputs have changed.
 
-**Factorio 2.1, Space Age and [RAZI Library](https://mods.factorio.com/mod/razi_lib) 1.3.1+.** Original More Asteroids cannot be enabled alongside this fork. Krastorio 2: Spaced Out is optional.
+Release ZIP includes no forbidden executable/script files. Custom RP3 galaxy, quality and difficulty integration belongs to RP3 itself.
 
-Other overhaul mods can supply their own additional planet, route, and quality integrations. This mod does not change RP3-specific planets or quality systems.
-
-## Notes
-
-The crystalline family replaces the old Petrified asteroid prototypes. If migrating from an earlier development build of this fork, back up your save.
-
-The first release should only be published after both a pure Space Age game and a Space Age + K2SO game successfully load and craft representative recipes.
-
-**Credits:** Based on **More Asteroids** by spartanlaser32. Original MIT license and upstream attribution are retained.
-
-**Source:** https://github.com/Raziphel/Razi-More-Asteroids
+**Credits:** Based on More Asteroids by spartanlaser32 (MIT). Existing sprites were modified, not replaced by AI-generated art. [Source](https://github.com/Raziphel/Razi-More-Asteroids).

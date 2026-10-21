@@ -281,3 +281,35 @@ data:extend(
         allow_decomposition = false
     }
   })
+
+
+-- New, independently collectible asteroid families. Reuse proven recipe
+-- prototypes rather than inventing a second machine or crafting category.
+local function add_family_recipe(family, source, advanced, results)
+  local source_name = (advanced and "advanced-" or "") .. source .. "-asteroid-crushing"
+  local name = (advanced and "advanced-" or "") .. family .. "-asteroid-crushing"
+  local prototype = table.deepcopy(data.raw.recipe[source_name])
+  prototype.name = name
+  prototype.icon = "__razi-more-asteroids__/graphics/icons/" .. name .. ".png"
+  prototype.ingredients = {{type="item",name=family.."-asteroid-chunk",amount=1}}
+  prototype.results = results
+  prototype.energy_required = advanced and 4 or 2
+  prototype.order = "b-a-" .. (family == "halide" and "m" or "n")
+  prototype.enabled = false
+  prototype.main_product = nil
+  data:extend({prototype})
+end
+
+add_family_recipe("halide","chemical",false,{
+  {type="fluid",name="fluorine",amount=12}
+})
+add_family_recipe("halide","chemical",true,{
+  {type="fluid",name="fluorine",amount=10},
+  {type="fluid",name="lithium-brine",amount=14}
+})
+add_family_recipe("electrostatic","crystalline",false,{
+  {type="item",name="holmium-ore",amount=3}
+})
+add_family_recipe("electrostatic","crystalline",true,{
+  {type="item",name="holmium-ore",amount=7}
+})
