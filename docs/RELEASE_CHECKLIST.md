@@ -1,11 +1,11 @@
 # First-public-release verification
 
-Candidate ZIP: `dist/razi-more-asteroids_1.0.0.zip`
+Candidate ZIP: `dist/razi-more-asteroids_1.0.1.zip`
 Status: **package-ready, engine validation pending**. Do not claim a completed in-game test until performed.
 
-## Automated gate
+## Packaging gate
 
-Run `python3 tools/release_check.py`. It verifies Factorio 2.1 recipe fields, deterministic ZIP contents, metadata, locale/changelog structure, original graphics and dimensions, five static test suites and Space Age/K2SO boundary checks.
+Build with the `git archive` command in README.md, using only the explicitly listed Factorio files. Check the ZIP root is `razi-more-asteroids_1.0.1/` and that `unzip -l` shows no `.exe`, `.bat`, `.ps1`, `.sh`, or `.py` entries. Developer scripts are maintained outside this mod repository. This packaging check is not an in-game test.
 
 ## Required manual startup tests
 
@@ -27,7 +27,7 @@ Run `python3 tools/release_check.py`. It verifies Factorio 2.1 recipe fields, de
 
 ## Publication procedure
 
-1. Run the complete gate and complete the manual tests above.
+1. Complete the packaging gate and manual tests above.
 2. If a prototype, crafting or sprite issue appears, fix it and **bump the patch version** before uploading.
 3. Open [Factorio Mod Portal](https://mods.factorio.com/), create the new mod using the prepared ZIP, and copy the text from `docs/MOD_PORTAL.md`.
 4. Set the license to **MIT**, link the repository, and use the existing 144px thumbnail.

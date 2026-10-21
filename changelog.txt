@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 21. 10. 2026
+  Bugfixes:
+    - Remove development scripts rejected by the Factorio Mod Portal.
+    - Ship release archives without forbidden executable file extensions.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 21. 10. 2026
   Major Features:

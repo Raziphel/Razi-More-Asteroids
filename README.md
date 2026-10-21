@@ -65,7 +65,14 @@ Do not install the original More Asteroids simultaneously. Do not add another qu
 
 ## Build and verification
 
-**First release candidate: 1.0.0.** The ZIP now requires the separately installed RAZI Library 1.3.1+. Run `python3 tools/release_check.py` to execute all static tests and create a deterministic ZIP at `dist/razi-more-asteroids_1.0.0.zip`. The archive includes only mod-loading files, localized text, licensed original artwork, a corrected thumbnail, and a Factorio-formatted changelog.
+**Release candidate: 1.0.1.** RAZI Library 1.3.1+ is required. Developer scripts were removed from the mod repository because Factorio's Mod Portal blocks executable/script extensions. Build only the approved Factorio files:
+
+```sh
+mkdir -p dist
+git archive --format=zip --prefix=razi-more-asteroids_1.0.1/ -o dist/razi-more-asteroids_1.0.1.zip HEAD info.json LICENSE changelog.txt thumbnail.png settings.lua data.lua data-updates.lua data-final-fixes.lua asteroids.lua recipe.lua item.lua more-asteroids-spawn-definitions.lua locale graphics prototypes
+```
+
+Inspect `unzip -l dist/razi-more-asteroids_1.0.1.zip` before uploading. The ZIP and repository contain no `.exe`, `.bat`, `.ps1`, `.sh` or `.py` files. Developer tests are kept outside this mod repository.
 
 **Manual engine tests are still required before publication:** Launch Factorio 2.1 with (1) Space Age + RaziLib and (2) Space Age + RaziLib + K2SO; verify recipes, machines, fluids and sprites. See `docs/RELEASE_CHECKLIST.md` for the full plan. The Mod Portal description is drafted in `docs/MOD_PORTAL.md`.
 

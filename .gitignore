@@ -2,3 +2,11 @@ dist/
 tools/__pycache__/
 *.pyc
 *.razi-backup-*
+
+# Block non-Factorio development scripts and executables.
+tools/
+*.py
+*.sh
+*.bat
+*.exe
+*.ps1
