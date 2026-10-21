@@ -12,6 +12,8 @@ Date: 22. 10. 2026
   Graphics:
     - Recolor original sprite assets for four distinct mineral identities.
     - Add 24 new original-derived Halide and Electrostatic graphics.
+    - Polish all 96 sprite/icon colors and mineral seams to match actual resource yields.
+    - Adjust each asteroid family's lighting and reflective qualities for its material.
   Info:
     - Preserve Factorio Mod Portal compatibility by shipping no executable scripts.
 ---------------------------------------------------------------------------------------------------

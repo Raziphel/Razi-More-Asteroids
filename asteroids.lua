@@ -200,6 +200,25 @@
   asteroids_data.electrostatic.order = "bf"
   asteroids_data.electrostatic.shading_data.lights[2].color = {0.34,0.47,0.95}
 
+  -- Material-matched scene lighting, preserving the source normal maps.
+  -- Differentiate mineral, biological and conductive faces at platform scale.
+  local lighting = {
+    uranium = {{0.94,1.0,0.90},{0.31,0.48,0.26},1.75},
+    rock = {{0.99,0.98,0.94},{0.52,0.43,0.32},1.65},
+    scrap = {{0.97,0.98,1.0},{0.56,0.30,0.21},2.0},
+    organic = {{0.92,1.0,0.91},{0.32,0.49,0.26},1.4},
+    chemical = {{0.89,1.0,0.99},{0.22,0.48,0.50},1.8},
+    crystalline = {{0.97,0.99,1.0},{0.40,0.49,0.59},2.35},
+    halide = {{0.96,0.96,1.0},{0.47,0.40,0.66},2.2},
+    electrostatic = {{0.90,0.96,1.0},{0.25,0.41,0.67},2.35}
+  }
+  for family,light in pairs(lighting) do
+    local shade = asteroids_data[family].shading_data
+    shade.lights[1].color = light[1]
+    shade.lights[2].color = light[2]
+    shade.specular_strength = light[3]
+  end
+
   local collision_radiuses =
   {
     0.4, -- chunk

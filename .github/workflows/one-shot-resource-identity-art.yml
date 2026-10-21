@@ -1,0 +1,208 @@
+name: Polish resource identity art (once)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-resource-identity-art.yml'
+permissions:
+  contents: write
+jobs:
+  polish-existing-asteroid-art:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Edit 96 original asteroid sprites using standard-library PNG processing
+        run: |
+          python3 - <<'PY'
+          import binascii
+          PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+          
+          def chunks_of(png: bytes):
+              assert png.startswith(PNG_SIGNATURE), "Not a PNG"
+              offset = len(PNG_SIGNATURE)
+              while offset < len(png):
+                  n = struct.unpack(">I", png[offset:offset+4])[0]
+                  typ = png[offset+4:offset+8]
+                  body = png[offset+8:offset+8+n]
+                  crc = struct.unpack(">I", png[offset+8+n:offset+12+n])[0]
+                  assert (binascii.crc32(typ + body) & 0xffffffff) == crc, typ
+                  yield typ, body
+                  offset += 12+n
+                  if typ == b"IEND": break
+          
+          def chunk(typ: bytes, body: bytes) -> bytes:
+              return struct.pack(">I", len(body)) + typ + body + struct.pack(
+                  ">I", binascii.crc32(typ + body) & 0xffffffff)
+          
+          def unfilter(raw: bytes, width: int, height: int):
+              pitch = width * 4
+              rows = []
+              filters = []
+              cursor = 0
+              prior = bytearray(pitch)
+              for _ in range(height):
+                  f = raw[cursor]
+                  line = bytearray(raw[cursor+1:cursor+pitch+1])
+                  assert len(line) == pitch
+                  cursor += pitch+1
+                  for j in range(pitch):
+                      a = line[j-4] if j >= 4 else 0
+                      b = prior[j]
+                      c = prior[j-4] if j >= 4 else 0
+                      if f == 1: predictor = a
+                      elif f == 2: predictor = b
+                      elif f == 3: predictor = (a+b)//2
+                      elif f == 4:
+                          p = a+b-c
+                          da, db, dc = abs(p-a), abs(p-b), abs(p-c)
+                          predictor = a if da<=db and da<=dc else (b if db<=dc else c)
+                      elif f == 0: predictor = 0
+                      else: raise ValueError(f"Unsupported PNG filter: {f}")
+                      line[j] = (line[j] + predictor) & 255
+                  rows.append(line)
+                  filters.append(f)
+                  prior = line
+              assert cursor == len(raw)
+              return rows, filters
+          
+          def refilter(rows, filters):
+              result = bytearray()
+              prior = bytearray(len(rows[0]))
+              for line, f in zip(rows, filters):
+                  result.append(f)
+                  for j, value in enumerate(line):
+                      a = line[j-4] if j>=4 else 0
+                      b = prior[j]
+                      c = prior[j-4] if j>=4 else 0
+                      if f==1: predictor=a
+                      elif f==2: predictor=b
+                      elif f==3: predictor=(a+b)//2
+                      elif f==4:
+                          p=a+b-c
+                          da,db,dc=abs(p-a),abs(p-b),abs(p-c)
+                          predictor=a if da<=db and da<=dc else (b if db<=dc else c)
+                      else: predictor=0
+                      result.append((value-predictor)&255)
+                  prior=line
+              return bytes(result)
+          
+          
+          """Retouch existing sprites by resource, outside Mod Portal upload archive."""
+          from pathlib import Path
+          import math,struct,zlib,subprocess
+          
+          ROOT=Path.cwd()
+          FAMILIES=("uranium","rock","scrap","organic","chemical","crystalline","halide","electrostatic")
+          # Shadow rock, exposed face, sunlit mineral, embedded-ore inclusion, intensity
+          LOOK={
+           "uranium":((19,29,27),(58,72,59),(125,137,91),(125,216,74),0.63),
+           "rock":((39,43,43),(112,110,100),(192,180,153),(232,214,177),0.22),
+           "scrap":((35,45,54),(109,94,82),(201,137,91),(149,194,211),0.48),
+           "organic":((25,34,26),(75,93,49),(160,153,84),(204,183,112),0.30),
+           "chemical":((19,48,55),(58,123,121),(148,201,181),(163,238,206),0.43),
+           "crystalline":((23,31,40),(72,87,98),(160,171,168),(205,215,210),0.48),
+           "halide":((41,40,66),(116,117,150),(203,190,203),(221,243,244),0.60),
+           "electrostatic":((24,25,45),(59,64,116),(133,125,173),(92,229,213),0.70),
+          }
+          def source_bytes(relative):
+              return subprocess.check_output(["git","show","HEAD:"+relative.as_posix()])
+          
+          def redo(path,family):
+              relative=path.relative_to(ROOT)
+              data=source_bytes(relative)
+              parts=list(chunks_of(data))
+              head=next(body for typ,body in parts if typ==b"IHDR")
+              w,h,depth,kind,_,_,inter=struct.unpack(">IIBBBBB",head)
+              assert (depth,kind,inter)==(8,6,0)
+              raw=zlib.decompress(b"".join(b for typ,b in parts if typ==b"IDAT"))
+              rows,filters=unfilter(raw,w,h)
+              before_alpha=b"".join(row[3::4] for row in rows)
+              lo,mid,hi,ore,strength=LOOK[family]
+              # Preserve the source's individual facets, scrapes and shadows.
+              for y,row in enumerate(rows):
+                  for x in range(w):
+                      off=x*4
+                      r,g,b,a=row[off:off+4]
+                      if not a:continue
+                      lum=(54*r+183*g+19*b)/(256*255)
+                      lum=max(0,min(1,lum*1.08))
+                      if lum<0.53:
+                          left,right,t=lo,mid,lum/0.53
+                      else:
+                          left,right,t=mid,hi,(lum-0.53)/0.47
+                      avg=(r+g+b)/3
+                      values=[left[i]*(1-t)+right[i]*t+0.12*(v-avg)
+                              for i,v in enumerate((r,g,b))]
+                      # Sparse ore veins follow pre-existing bright mineral facets,
+                      # broken up by irregular, low-amplitude contour variations.
+                      contour=x*.185-y*.113+1.15*math.sin(x*.043+y*.058)
+                      vein=max(0,1-abs(math.sin(contour))*4.1)
+                      patches=(0.5+0.5*math.sin(x*.077+1.2*math.sin(y*.059))) * (
+                              0.5+0.5*math.sin(y*.092-x*.041))
+                      surface=max(0,min(1,(lum-0.29)*1.75))
+                      presence=surface*(0.20+0.58*vein+0.20*patches)
+                      if family=="organic":
+                          # Dull spores and fungal spots, not electrical veins.
+                          presence=surface*(0.25+0.65*patches)
+                      if family=="rock":
+                          # Subtle calcite flecks in coarse stone.
+                          presence=surface*(0.25+0.30*vein)
+                      if family=="scrap":
+                          # Exposed silver-steel edges breaking through rust.
+                          presence=surface*(0.17+0.55*vein+0.14*patches)
+                      blend=min(0.73,max(0,presence*strength)) * min(1,a/180)
+                      for i in range(3):
+                          new=values[i]*(1-blend)+ore[i]*blend
+                          row[off+i]=max(0,min(255,round(new)))
+              assert before_alpha==b"".join(row[3::4] for row in rows)
+              out=bytearray(PNG_SIGNATURE)
+              wrote=False
+              for typ,body in parts:
+                  if typ==b"IDAT":
+                      if not wrote:
+                          out+=chunk(typ,zlib.compress(refilter(rows,filters),9))
+                          wrote=True
+                  else:
+                      out+=chunk(typ,body)
+              assert wrote
+              path.write_bytes(out)
+          
+          def main():
+              for family in FAMILIES:
+                  paths=list((ROOT/"graphics/entity/asteroid"/family).rglob("*.png"))
+                  paths+=list((ROOT/"graphics/icons").glob(f"*{family}-asteroid*.png"))
+                  paths+=list((ROOT/"graphics/icons").glob(f"{family}-asteroid*.png"))
+                  paths=sorted(set(paths))
+                  assert len(paths)==12,(family,len(paths))
+                  for path in paths:redo(path,family)
+                  print(family, len(paths), "original sprites/icons retouched")
+          if __name__=="__main__":main()
+          
+          PY
+      - name: Verify resource-polished art and Factorio Portal safety
+        run: |
+          python3 - <<'PY'
+          import json,struct
+          from pathlib import Path
+          root=Path("graphics")
+          icons=list((root/"icons").glob("*.png"))
+          entities=list((root/"entity"/"asteroid").rglob("*.png"))
+          assert (len(icons),len(entities))==(56,40)
+          for path in icons:
+              assert struct.unpack(">II",path.read_bytes()[16:24])==(64,64),path
+          for path in entities:
+              size={"chunk":50,"small":128,"medium":230,"big":304,"huge":512}[path.parent.name]
+              assert struct.unpack(">II",path.read_bytes()[16:24])==(size,size),path
+          assert json.loads(Path("info.json").read_text())["version"]=="1.1.0"
+          assert not any(p.suffix.lower() in (".exe",".bat",".ps1",".sh",".py") for p in Path(".").rglob("*") if ".git" not in p.parts)
+          print("PASS: 96 material-specific asteroid PNGs and portal-safe file types")
+          PY
+      - name: Commit existing art modifications and remove one-off workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add graphics
+          git rm .github/workflows/one-shot-resource-identity-art.yml
+          git diff --cached --check
+          git commit -m "fix(art): align asteroid appearance with resource outputs"
+          git push origin HEAD:main

@@ -46,6 +46,8 @@ All eight optional specialty recipes require valid K2SO prototypes and the relev
 
 All eight families reuse the original asteroid geometry. Two new sets of variants were made by modifying existing Chemical and Crystalline textures rather than using generated artwork. Dense-Metal, Volatile, Halide and Electrostatic have distinctive updated shading. Icons are 64×64; the Mod Portal thumbnail is 144×144.
 
+Material-specific artwork and lighting are documented in [Asteroid art direction](docs/ART_DIRECTION.md). The **96 existing PNGs** preserve their original silhouettes and transparency while using resource-matched mineral inclusions.
+
 ## Settings
 
 - **Populate Space Age asteroid routes** (on): add all eight families to vanilla routes and locations.
