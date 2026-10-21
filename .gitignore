@@ -1,3 +1,4 @@
 dist/
 tools/__pycache__/
 *.pyc
+*.razi-backup-*

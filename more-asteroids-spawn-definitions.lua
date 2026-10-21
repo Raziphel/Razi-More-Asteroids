@@ -44,7 +44,7 @@ asteroid_functions.huge_angle = 0.4
 
 asteroid_functions.nauvis_vulcanus =
 {
-  types = {"uranium", "rock", "petrified"},
+  types = {"uranium", "rock", "crystalline"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -65,7 +65,7 @@ asteroid_functions.nauvis_vulcanus =
 
 asteroid_functions.nauvis_gleba =
 {
-  types = {"uranium", "organic", "petrified"},
+  types = {"uranium", "organic", "crystalline"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -86,7 +86,7 @@ asteroid_functions.nauvis_gleba =
 
 asteroid_functions.nauvis_fulgora =
 {
-  types = {"uranium", "petrified", "scrap"},
+  types = {"uranium", "crystalline", "scrap"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -233,7 +233,7 @@ asteroid_functions.aquilo_solar_system_edge =
 
 asteroid_functions.shattered_planet_trip =
 {
-  types = {"uranium", "rock", "chemical", "organic", "petrified", "scrap"},
+  types = {"uranium", "rock", "chemical", "organic", "crystalline", "scrap"},
   probability_on_range_huge   =
   {
     {position = 0.001, probability = asteroid_functions.system_edge_huge, angle_when_stopped = asteroid_functions.huge_angle},
@@ -279,7 +279,7 @@ asteroid_functions.fulgora_cerys =
 
 asteroid_functions.nauvis_muluna =
 {
-  types = {"uranium", "rock", "petrified"},
+  types = {"uranium", "rock", "crystalline"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -295,7 +295,7 @@ asteroid_functions.nauvis_muluna =
 
 asteroid_functions.vulcanus_maraxsis =
 {
-  types = {"rock", "organic", "petrified"},
+  types = {"rock", "organic", "crystalline"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.vulcanus_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -317,7 +317,7 @@ asteroid_functions.vulcanus_maraxsis =
 
 asteroid_functions.fulgora_maraxsis =
 {
-  types = {"rock", "organic", "petrified", "scrap"},
+  types = {"rock", "organic", "crystalline", "scrap"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.fulgora_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -488,7 +488,7 @@ asteroid_functions.spawn_definitions = function(data, planet)
         asteroid_id = 3
       elseif asteroid_type == "organic" then
         asteroid_id = 4
-      elseif asteroid_type == "petrified" then
+      elseif asteroid_type == "crystalline" then
         asteroid_id = 5
       elseif asteroid_type == "scrap" then
         asteroid_id = 6

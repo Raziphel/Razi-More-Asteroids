@@ -6,6 +6,7 @@ local function enabled(id)
   local setting=options[id]
   return setting==nil or setting.value==true
 end
+require("prototypes.compat.crystalline")
 if enabled("razi-more-asteroids-k2so-recovery") then
   require("prototypes.compat.k2so_recipes")
 end

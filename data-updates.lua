@@ -106,7 +106,7 @@ local function unlock(techname,recipe)
 end
 local basic={
   ["uranium-asteroid-crushing"]="space-platform",
-  ["petrified-asteroid-crushing"]="space-platform",
+  ["crystalline-asteroid-crushing"]="space-platform",
   ["rock-asteroid-crushing"]="planet-discovery-vulcanus",
   ["scrap-asteroid-crushing"]="planet-discovery-fulgora",
   ["organic-asteroid-crushing"]="planet-discovery-gleba",
@@ -117,7 +117,7 @@ for recipe,techname in pairs(basic) do
     unlock("advanced-asteroid-processing",recipe)
   end
 end
-for _,material in ipairs({"uranium","petrified","rock","scrap","organic"}) do
+for _,material in ipairs({"uranium","crystalline","rock","scrap","organic"}) do
   unlock("advanced-asteroid-processing","advanced-"..material.."-asteroid-crushing")
 end
 if not unlock("planet-discovery-aquilo","advanced-chemical-asteroid-crushing") then
@@ -126,7 +126,7 @@ end
 local productivity=data.raw.technology["asteroid-productivity"]
 if productivity then
   productivity.effects=productivity.effects or {}
-  for _,material in ipairs({"uranium","petrified","rock","scrap","organic","chemical"}) do
+  for _,material in ipairs({"uranium","crystalline","rock","scrap","organic","chemical"}) do
     for _,prefix in ipairs({"","advanced-"}) do
       local recipe=prefix..material.."-asteroid-crushing"
       if data.raw.recipe[recipe] then

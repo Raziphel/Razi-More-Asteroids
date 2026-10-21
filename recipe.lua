@@ -219,7 +219,7 @@ data:extend(
         {type = "item", name = "organic-asteroid-chunk", amount = 1},
         {type = "item", name = "nutrients", amount = 5},
         {type = "fluid", name = "water", amount = 50},
-    
+
         },
         energy_required = 2,
         results =
@@ -234,8 +234,8 @@ data:extend(
     },
     {
         type = "recipe",
-        name = "petrified-asteroid-crushing",
-        icon = "__razi-more-asteroids__/graphics/icons/petrified-asteroid-crushing.png",
+        name = "crystalline-asteroid-crushing",
+        icon = "__razi-more-asteroids__/graphics/icons/crystalline-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -243,22 +243,22 @@ data:extend(
         enabled = false,
         ingredients =
         {
-        {type = "item", name = "petrified-asteroid-chunk", amount = 1},
+        {type = "item", name = "crystalline-asteroid-chunk", amount = 1},
         },
         energy_required = 2,
         results =
         {
-        {type = "item", name = "wood", amount_min = 5, amount_max = 20},
-        {type = "item", name = "raw-fish", amount = 1, probability = 0.4},
-        {type = "item", name = "petrified-asteroid-chunk", amount = 1, probability = 0.2}
+        {type = "item", name = "kr-sand", amount = 8},
+        {type = "item", name = "kr-quartz", amount = 2},
+        {type = "item", name = "crystalline-asteroid-chunk", amount = 1, probability = 0.2}
         },
         allow_productivity = true,
         allow_decomposition = false
     },
     {
         type = "recipe",
-        name = "advanced-petrified-asteroid-crushing",
-        icon = "__razi-more-asteroids__/graphics/icons/advanced-petrified-asteroid-crushing.png",
+        name = "advanced-crystalline-asteroid-crushing",
+        icon = "__razi-more-asteroids__/graphics/icons/advanced-crystalline-asteroid-crushing.png",
         category = "crushing",
         subgroup="space-crushing",
         order = "b-a-a",
@@ -266,16 +266,16 @@ data:extend(
         enabled = false,
         ingredients =
         {
-        {type = "item", name = "petrified-asteroid-chunk", amount = 1},
-        {type = "item", name = "bioflux", amount = 5},
-        {type = "fluid", name = "fluoroketone-cold", amount = 10},
-    
+        {type = "item", name = "crystalline-asteroid-chunk", amount = 1},
+        {type = "fluid", name = "sulfuric-acid", amount = 20},
+
         },
         energy_required = 2,
         results =
         {
-        {type = "item", name = "biter-egg", amount = 1},
-        {type = "item", name = "petrified-asteroid-chunk", amount = 1, probability = 0.05}
+        {type = "item", name = "kr-quartz", amount = 4},
+        {type = "item", name = "kr-rare-metal-ore", amount = 1, probability = 0.25},
+        {type = "item", name = "crystalline-asteroid-chunk", amount = 1, probability = 0.05}
         },
         allow_productivity = true,
         allow_decomposition = false

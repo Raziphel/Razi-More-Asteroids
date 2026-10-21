@@ -1,6 +1,6 @@
 {
   "name": "razi-more-asteroids",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "title": "Razi More Asteroids: K2SO Edition",
   "author": "Razi's Realm (based on More Asteroids by spartanlaser32)",
   "factorio_version": "2.1",
@@ -11,8 +11,9 @@
     "! More-Asteroids",
     "(?) Cerys-Moon-of-Fulgora",
     "(?) planet-muluna",
-    "(?) maraxsis"
+    "(?) maraxsis",
+    "(?) nulls-k2so-tweaks"
   ],
-  "description": "K2SO-focused More Asteroids fork with guarded crushers, six resource families, and Razi Protocol compatibility.",
-  "homepage": "https://github.com/spartanlaser32/More-Asteroids"
+  "description": "K2SO-focused asteroids: crystalline quartz, rare-metal ore, biomass and mineral-water recovery, plus RP3 space routes.",
+  "homepage": "https://github.com/Raziphel/Razi-More-Asteroids"
 }

@@ -60,8 +60,8 @@ data:extend({
       },
       {
         type = "item",
-        name = "petrified-asteroid-chunk",
-        icon = "__razi-more-asteroids__/graphics/icons/petrified-asteroid-chunk.png",
+        name = "crystalline-asteroid-chunk",
+        icon = "__razi-more-asteroids__/graphics/icons/crystalline-asteroid-chunk.png",
         subgroup = "space-material",
         order = "a[metallic]-e[chunk]",
         inventory_move_sound = space_age_item_sounds.sulfur_inventory_move,
