@@ -44,6 +44,19 @@ This fork **does not** grant legendary-quality collectible chunks or free imersi
 
 The original source was released for Factorio 2.0; this development branch targets 2.1 but **full engine and entire RP3 modpack loading still require validation**. Not yet a published Mod Portal release.
 
+## Resource-matched asteroid artwork
+
+All 72 active asteroid sprites and corresponding icons are **regraded original artwork**, not newly generated models. The shapes, shadow profiles, transparent silhouettes, resolution and animation frame layouts are preserved.
+
+- Rock: cool stony grays with restrained tungsten-colored mineral inclusions
+- Uranium: dark mineral faces and radioactive green highlights
+- Scrap: weathered gunmetal and oxidized industrial rust
+- Organic: muted fungal olive and biomass browns
+- Chemical: aqueous turquoise, ammonia/fluorine greens and pale mineral deposits
+- Crystalline: bright frosted quartz, sand-white highlights and cool blue mineral faces
+
+To reproduce the art pass on an unchanged source tree: `python3 tools/retouch_asteroid_graphics.py --apply`. Re-running on already retouched PNGs safely does nothing. Use `python3 tools/test_asteroid_art.py` to verify that alpha masks and dimensions match the repository's current baseline. Graphics processing uses Python's standard library; build tools are excluded from the mod ZIP.
+
 ## Build / installation
 
 This repository contains the full standalone mod source and upstream graphics. Its `info.json` name is `razi-more-asteroids`.
