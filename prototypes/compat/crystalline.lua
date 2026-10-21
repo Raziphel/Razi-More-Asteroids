@@ -1,5 +1,5 @@
 -- Resolve the actual K2SO items after compatibility mods have loaded.
--- Null's K2SO Tweaks and RP3 can rename kr-sand -> sand; never leave
+-- Other K2SO compatibility mods can rename kr-sand -> sand; never leave
 -- missing result prototypes in the original crystalline crushing recipes.
 local items = data.raw.item or {}
 local recipes = data.raw.recipe or {}

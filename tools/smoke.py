@@ -12,7 +12,7 @@ assert len(list((root/"graphics"/"entity"/"asteroid").iterdir())) >= 6
 data=(root/"data.lua").read_text()
 assert "data-updates" not in data, "data-updates must load in its own Factorio stage"
 final=(root/"data-final-fixes.lua").read_text()
-assert "k2so_recipes" in final and "razi_routes" in final
+assert "k2so_recipes" in final and "space_age_recipes" in final
 fluid=(root/"prototypes"/"compat"/"k2so_fluids.lua").read_text()
 assert "next(machine.fluid_boxes)" in fluid, "Never replace existing fluid boxes"
 source=(root/"data-updates.lua").read_text()
@@ -26,4 +26,4 @@ for path in root.glob("*.lua"):
   for ref in re.findall(r'__razi-more-asteroids__/(graphics/[^"\\]+?\\.png)',content):
     assert (root/ref).is_file(), f"Missing sprite reference: {path}: {ref}"
 assert (root/"LICENSE").exists()
-print("PASS: metadata, 2.1/K2SO dependency, stage order, graphics, fluids, research, source attribution")
+print("PASS: metadata, optional K2SO, stage order, graphics, fluids, research, attribution")

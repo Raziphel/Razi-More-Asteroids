@@ -1,72 +1,61 @@
-# Razi More Asteroids: K2SO Edition
+# Razi More Asteroids
 
-A standalone Factorio 2.1 fork of [More Asteroids](https://mods.factorio.com/mod/More-Asteroids) by **spartanlaser32**, focused on **Krastorio 2: Spaced Out** and the **Razi Protocol 3.0** galaxy.
+Standalone Factorio **2.1 Space Age** asteroid mod, based on [More Asteroids](https://mods.factorio.com/mod/More-Asteroids) by spartanlaser32. **Krastorio 2: Spaced Out (K2SO) is optional**, not a requirement.
 
-## What the first development pass includes
+## Six resource families
 
-- Keeps six asteroid families: uranium, rock, scrap, organic, chemical and **crystalline**. Crystalline replaces the unused Petrified family with K2SO resource processing.
-- Preserves hostile asteroid sizes, chunk collection and asteroid productivity research.
-- Requires Factorio 2.1, Space Age and K2SO. Original More Asteroids is marked incompatible so duplicate source recipes and asteroids do not load.
-- Uses automatic Factorio loading stages instead of manually importing `data-updates.lua` during `data.lua`.
-- Never overwrites existing crusher fluid-box layouts. Adds support only to crushers with no fluid boxes and includes a guarded Big Crusher integration compatible with Null's K2SO Tweaks.
-- Safely skips technology unlocks if research is absent or renamed. Does not introduce a second research tree.
-- Adds quartz/sand and rare-metal-ore yields to crystalline chunks, plus four guarded K2SO orbital processing routes after advanced asteroid processing.
-- Adds small, idempotent resource and medium-hostile asteroid populations on selected modded planets and their real space routes. Native mod resources, Imersite Asteroids and RP3's existing hostile quality escalation remain authoritative.
-- All new extensions are startup-configurable; no runtime events, polling or save globals are added.
-
-## Settings
-
-| Startup setting | Default | Behavior |
+| Family | Space Age resources | Optional K2SO enhancements |
 | --- | --- | --- |
-| Razi More Asteroids: Extended Routes | On | Populate a small number of RP3/K2SO planet and route entries not covered by the original |
-| Razi More Asteroids: K2SO Recovery | On | Add rare-metal ore, crystalline leaching, biomass and mineral-water recipes |
+| Uranium | Uranium ore and isotopes | Existing uranium processing |
+| Rock | Stone and tungsten ore | Rare-metal ore recovery |
+| Scrap | Fulgora recyclable scrap | Existing scrap processing |
+| Organic | Spoilage and advanced biological products | Biomass recovery |
+| Chemical | Ammonia, fluorine and lithium brine | Mineral-water recovery |
+| Crystalline | Stone, ice and trace calcite | Sand, quartz and trace rare-metal ore |
 
-## K2SO orbital processing
+Crystalline replaces Petrified, including its prototypes and artwork. Back up saves containing the retired Petrified asteroid family before upgrading. All 72 active original sprites/icons have been resource-color-graded without changing original silhouettes, frames or alpha.
 
-Crystalline replaces Petrified. Basic crushing yields 8 sand and 2 quartz per chunk. Advanced crushing uses 20 sulfuric acid for 4 quartz and a 20% chance of raw rare-metal ore.
+## Vanilla Space Age compatibility
 
-The optional advanced-processing recipes provide:
+- Spawns themed asteroid families around Nauvis, Vulcanus, Gleba, Fulgora, Aquilo and the edge/shattered destinations, as well as their existing vanilla routes.
+- Extends spawn definitions without overwriting native or other mod records; avoids duplicate entries.
+- Unlocks processing with Space Age technology progression, using existing research and productivity technologies.
+- Gives Crystalline useful Space Age outputs even when K2SO is absent.
+- Preserves existing crusher fluid boxes, with guarded ports where otherwise missing.
+- Uses no runtime polling, saved globals, RP3-specific planet names or custom galaxy logic.
 
-- **Crystalline ore leaching:** 3 crystalline chunks + 75 sulfuric acid => 1 raw rare-metal ore + 4 quartz.
-- **Rock rare-metal recovery:** 2 rock chunks + 30 sulfuric acid => 6 stone and 35% chance of 1 raw rare-metal ore.
-- **Organic biomass:** 2 organic chunks + 5 nutrients => 3 K2SO biomass + 5 spoilage.
-- **Chemical mineral water:** 2 chemical chunks + 50 water => 30 mineral water + 2 sulfur.
+## Optional K2SO processing
 
-These inputs preserve K2SO's refining loop and intentionally do not grant endgame imersite or free science. Recipes are only registered when their inputs and outputs exist. Sand output follows K2SO and Null's Tweaks aliases (`kr-sand` or `sand`) independently of the optional recovery setting.
+When K2SO is installed, Crystalline yields sand and quartz instead of the vanilla mineral fallback. Basic crystalline crushing gives 8 sand and 2 quartz. Advanced crushing consumes sulfuric acid and yields 4 quartz plus a small rare-metal ore chance.
 
-Changing from Petrified prototypes to Crystalline prototypes removes the former IDs. Back up existing saves before trying this development fork.
+Four specialty recipes unlock through advanced asteroid processing:
 
-## Integration boundaries
+- Crystalline leaching: 3 crystalline chunks + 75 sulfuric acid produces 1 raw rare-metal ore and 4 quartz.
+- Rock rare-metal recovery: 2 rock chunks + 30 sulfuric acid produces 6 stone and a 35% chance for raw rare-metal ore.
+- Organic biomass: 2 organic chunks + 5 nutrients produces 3 K2SO biomass and 5 spoilage.
+- Chemical extraction: 2 chemical chunks + 50 water produces 30 K2SO mineral water and 2 sulfur.
 
-**Do not bundle or depend on Quality Asteroids / Quality Asteroids Expanded.** Razi Protocol 3.0 already provides a native 10-stage quality scaling system that recognizes real hostile asteroid prototypes. No additional quality carriers or child asteroid multiplication are introduced here.
+Each specialized recipe is registered only when its ingredient/result prototypes exist. Other K2SO compatibility mods may rename kr-sand to sand, which is resolved at final-fixes. Ore still requires K2SO refining. No imersite, free science, or planetary endgame skips.
 
-This fork **does not** grant legendary-quality collectible chunks or free imersite science; resources must still be processed using proper recipes. Other authors' asteroid spawn records are not replaced. The extra planet populations deliberately remain small.
+## Startup settings
 
-The original source was released for Factorio 2.0; this development branch targets 2.1 but **full engine and entire RP3 modpack loading still require validation**. Not yet a published Mod Portal release.
+| Setting | Default | Meaning |
+| --- | --- | --- |
+| Space Age asteroid routes | On | Add asteroids only on native Space Age locations and routes. Internal setting name retained for existing saves. |
+| K2SO orbital resource recovery | On | Enable the four specialized recipes when K2SO is installed. No effect without K2SO. |
 
-## Resource-matched asteroid artwork
+## Integration boundary
 
-All 72 active asteroid sprites and corresponding icons are **regraded original artwork**, not newly generated models. The shapes, shadow profiles, transparent silhouettes, resolution and animation frame layouts are preserved.
+Razi Protocol owns its own custom planets, asteroid belts, quality escalation, journals, and difficulty balance. This fork does not apply those RP3-specific changes and does not require RP3. The upstream optional-planet profiles are not activated.
 
-- Rock: cool stony grays with restrained tungsten-colored mineral inclusions
-- Uranium: dark mineral faces and radioactive green highlights
-- Scrap: weathered gunmetal and oxidized industrial rust
-- Organic: muted fungal olive and biomass browns
-- Chemical: aqueous turquoise, ammonia/fluorine greens and pale mineral deposits
-- Crystalline: bright frosted quartz, sand-white highlights and cool blue mineral faces
+Do not install the original More Asteroids simultaneously. Do not add another quality-asteroid layer here.
 
-To reproduce the art pass on an unchanged source tree: `python3 tools/retouch_asteroid_graphics.py --apply`. Re-running on already retouched PNGs safely does nothing. Use `python3 tools/test_asteroid_art.py` to verify that alpha masks and dimensions match the repository's current baseline. Graphics processing uses Python's standard library; build tools are excluded from the mod ZIP.
+## Build and verification
 
-## Build / installation
+Package using the Python helper in tools/package_fork.py. Test with tools/smoke.py, tools/test_space_age_compat.py, tools/test_k2so_integration.py, and tools/test_asteroid_art.py. These structural tests do not replace actual Factorio 2.1 startup tests in (1) Space Age alone and (2) Space Age + K2SO.
 
-This repository contains the full standalone mod source and upstream graphics. Its `info.json` name is `razi-more-asteroids`.
+Not yet verified as a public Mod Portal release.
 
-Package into a ZIP whose root folder is named `razi-more-asteroids_0.5.0`; place the ZIP in the Factorio mods folder alongside K2SO. Do not enable the original More Asteroids mod simultaneously. Back up saves before switching.
+## Credit and license
 
-RP3 should declare the new mod as a hard dependency **after the fork is published and verified**. The fork deliberately does not depend on RP3, avoiding circular dependencies.
-
-## Credits and license
-
-Based on **More Asteroids** by [spartanlaser32](https://github.com/spartanlaser32/More-Asteroids), licensed under MIT on the Factorio Mod Portal. Upstream asteroid assets and original source concepts are preserved. Modifications and K2SO/RP3 support are by Razi's Realm.
-
-This fork includes the MIT permission notice, and retains attribution to the original author.
+Original [More Asteroids](https://github.com/spartanlaser32/More-Asteroids) by spartanlaser32, released under MIT. Original license and credit preserved. Razi's Realm provides the fork adaptations and recolored original graphics.

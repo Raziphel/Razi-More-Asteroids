@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Structural regression checks for the K2SO data-stage integration.
 
-Static checks only. Running Factorio with K2SO + RP3 is still required.
+Static checks only. Factorio with K2SO still requires engine testing.
 """
 import json
 from pathlib import Path
@@ -10,11 +10,11 @@ root = Path(__file__).resolve().parents[1]
 read = lambda path: (root / path).read_text()
 info = json.loads(read("info.json"))
 assert "(?) nulls-k2so-tweaks" in info["dependencies"]
-assert "Krastorio2-spaced-out" in " ".join(info["dependencies"])
+assert "? Krastorio2-spaced-out" in " ".join(info["dependencies"])
 
 final = read("data-final-fixes.lua")
 assert final.index('require("prototypes.compat.crystalline")') < final.index(
-    'if enabled("razi-more-asteroids-k2so-recovery")'
+    'require("prototypes.compat.k2so_recipes")'
 )
 assert 'require("prototypes.compat.k2so_recipes")' in final
 
@@ -47,8 +47,7 @@ assert 'kr-quartz' in recipes
 # must have converted to crystalline; only documentation may mention history.
 sources = [
     "asteroids.lua", "item.lua", "recipe.lua", "data-updates.lua",
-    "more-asteroids-spawn-definitions.lua", "prototypes/compat/razi_routes.lua",
-    "locale/en/idkwtph.cfg",
+    "more-asteroids-spawn-definitions.lua", "locale/en/idkwtph.cfg",
 ]
 for source in sources:
     body = read(source).lower()

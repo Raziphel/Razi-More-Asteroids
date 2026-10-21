@@ -388,13 +388,11 @@ end
 asteroid_functions.normalize_ratio = function(ratio)
   local r = {}
   local max = 0
-  for k, v in pairs(ratio) do
-    if v > max then
-      max = v
-    end
+  for i = 1, #ratio do
+    max = math.max(max, ratio[i] or 0)
   end
-  for k, v in pairs(ratio) do
-    table.insert(r, v/max)
+  for i = 1, #ratio do
+    r[i] = max > 0 and (ratio[i] or 0) / max or 0
   end
   return r
 end

@@ -1,19 +1,16 @@
 {
   "name": "razi-more-asteroids",
-  "version": "0.5.1",
-  "title": "Razi More Asteroids: K2SO Edition",
+  "version": "0.6.0",
+  "title": "Razi More Asteroids",
   "author": "Razi's Realm (based on More Asteroids by spartanlaser32)",
   "factorio_version": "2.1",
   "dependencies": [
     "base >= 2.1.20",
     "space-age >= 2.1.20",
-    "Krastorio2-spaced-out >= 2.0.17",
+    "? Krastorio2-spaced-out >= 2.0.17",
     "! More-Asteroids",
-    "(?) Cerys-Moon-of-Fulgora",
-    "(?) planet-muluna",
-    "(?) maraxsis",
     "(?) nulls-k2so-tweaks"
   ],
-  "description": "K2SO-focused asteroids: crystalline quartz, rare-metal ore, biomass and mineral-water recovery, plus RP3 space routes.",
+  "description": "Standalone Space Age asteroid families, with optional K2SO quartz, rare-metal ore, biomass and mineral-water processing.",
   "homepage": "https://github.com/Raziphel/Razi-More-Asteroids"
 }

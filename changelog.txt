@@ -1,3 +1,19 @@
+Version: 0.6.0
+Date: 21. 10. 2026
+  Features:
+    - Space Age standalone mode; K2SO now optional.
+    - Space Age mineral outputs for crystalline asteroids without K2SO.
+    - Retain all six resource families with retouched in-repo graphics.
+  Compatibility:
+    - Add asteroids to native Space Age planets/routes only.
+    - Remove RP3-specific planet/route extensions; RP3 integrates on its side.
+    - Deduplicate asteroid records and preserve nonnative spawn records.
+    - Keep K2SO ore, biomass, quartz and mineral water recovery optional.
+    - Preserve configured asteroid research and guarded crusher fluid boxes.
+  Bugfixes:
+    - Normalize spawn ratios deterministically rather than relying on pairs order.
+    - Guard against all-zero ratio vectors.
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
 Date: 21. 10. 2026
   Features:
