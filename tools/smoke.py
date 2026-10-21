@@ -18,7 +18,7 @@ assert "next(machine.fluid_boxes)" in fluid, "Never replace existing fluid boxes
 source=(root/"data-updates.lua").read_text()
 assert 'require("prototypes.compat.k2so_fluids")' in source
 assert 'unlock("advanced-asteroid-processing"' in source
-assert 'productivity.effects' in source
+assert 'productivity:add_effect' in source
 assert not (root/"control.lua").exists(), "Prototype-only mod must not ship an empty runtime script"
 for path in root.glob("*.lua"):
   content=path.read_text()

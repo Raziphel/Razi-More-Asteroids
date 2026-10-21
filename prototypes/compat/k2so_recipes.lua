@@ -1,7 +1,8 @@
+local Technology = require("__razi_lib__/lib/technology")
 -- K2SO orbital processing. Only real K2SO prototypes are referenced;
 -- skip optional recipes if another mod removed an input or output.
 local items,fluids,recipes,techs=data.raw.item or {},data.raw.fluid or {},data.raw.recipe or {},data.raw.technology or {}
-local advanced=techs["advanced-asteroid-processing"]
+local advanced=Technology.optional("advanced-asteroid-processing")
 if not advanced then return end
 
 local function item(name,n,p)
@@ -19,13 +20,11 @@ local function all_exist(specs)
   end
   return true
 end
-local function add_effect(tech,effect)
-  if not tech then return end
-  tech.effects=tech.effects or {}
-  for _,previous in ipairs(tech.effects) do
-    if previous.type==effect.type and previous.recipe==effect.recipe then return end
-  end
-  tech.effects[#tech.effects+1]=effect
+local function add_effect(technology, effect)
+  if not technology then return end
+  technology:add_effect(effect, function(existing)
+    return existing.type == effect.type and existing.recipe == effect.recipe
+  end)
 end
 local function add(name,icon,order,ingredients,results,energy)
   if not all_exist(ingredients) or not all_exist(results) then
@@ -45,7 +44,7 @@ local function add(name,icon,order,ingredients,results,energy)
     }})
   end
   add_effect(advanced,{type="unlock-recipe",recipe=name})
-  add_effect(techs["asteroid-productivity"],{
+  add_effect(Technology.optional("asteroid-productivity"),{
     type="change-recipe-productivity",recipe=name,change=0.1
   })
 end

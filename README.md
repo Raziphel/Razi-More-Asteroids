@@ -1,6 +1,6 @@
 # Razi More Asteroids
 
-Standalone Factorio **2.1 Space Age** asteroid mod, based on [More Asteroids](https://mods.factorio.com/mod/More-Asteroids) by spartanlaser32. **Krastorio 2: Spaced Out (K2SO) is optional**, not a requirement.
+Standalone Factorio **2.1 Space Age** asteroid mod, based on [More Asteroids](https://mods.factorio.com/mod/More-Asteroids) by spartanlaser32. **RAZI Library 1.3.1+ is required.** Krastorio 2: Spaced Out (K2SO) remains optional.
 
 ## Six resource families
 
@@ -14,6 +14,10 @@ Standalone Factorio **2.1 Space Age** asteroid mod, based on [More Asteroids](ht
 | Crystalline | Stone, ice and trace calcite | Sand, quartz and trace rare-metal ore |
 
 Crystalline replaces Petrified, including its prototypes and artwork. Back up saves containing the retired Petrified asteroid family before upgrading. The 30 in-world sprites retain their original silhouettes, while all 42 UI icons use correctly sized 64×64 crops of the original artwork. The existing thumbnail is framed at 144×144.
+
+## RAZI Library integration
+
+The mod requires [RAZI Library](https://mods.factorio.com/mod/razi_lib) **1.3.1+**. It reuses RaziLib Settings, Recipe and Technology helpers for safe configuration, idempotent research unlocks, K2SO crafting-category integration, and Factorio 2.1 recipe normalization. Only this mod's own recipes are normalized, so unrelated mods remain untouched. RaziLib itself is passive.
 
 ## Vanilla Space Age compatibility
 
@@ -61,9 +65,9 @@ Do not install the original More Asteroids simultaneously. Do not add another qu
 
 ## Build and verification
 
-**First release candidate: 1.0.0.** Run `python3 tools/release_check.py` to execute all static tests and create a deterministic ZIP at `dist/razi-more-asteroids_1.0.0.zip`. The archive includes only mod-loading files, localized text, licensed original artwork, a corrected thumbnail, and a Factorio-formatted changelog.
+**First release candidate: 1.0.0.** The ZIP now requires the separately installed RAZI Library 1.3.1+. Run `python3 tools/release_check.py` to execute all static tests and create a deterministic ZIP at `dist/razi-more-asteroids_1.0.0.zip`. The archive includes only mod-loading files, localized text, licensed original artwork, a corrected thumbnail, and a Factorio-formatted changelog.
 
-**Manual engine tests are still required before publication:** Launch Factorio 2.1 with (1) Space Age alone and (2) Space Age + K2SO; verify recipes, machines, fluids and sprites. See `docs/RELEASE_CHECKLIST.md` for the full plan. The Mod Portal description is drafted in `docs/MOD_PORTAL.md`.
+**Manual engine tests are still required before publication:** Launch Factorio 2.1 with (1) Space Age + RaziLib and (2) Space Age + RaziLib + K2SO; verify recipes, machines, fluids and sprites. See `docs/RELEASE_CHECKLIST.md` for the full plan. The Mod Portal description is drafted in `docs/MOD_PORTAL.md`.
 
 The candidate has **not** yet been published to the Factorio Mod Portal.
 

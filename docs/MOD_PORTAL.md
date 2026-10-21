@@ -17,11 +17,11 @@ Space between planets no longer has to be just metallic, carbonic, and oxide ast
 
 Install K2SO to enable quartz, sand, raw rare-metal ore, biomass, mineral-water, hydrogen, oxygen, and recovered component processing from asteroid chunks. Eight advanced recipes provide alternate orbital supply chains while keeping K2SO research and refining relevant.
 
-Compatible dry asteroid recipes can also run in K2SO crushers. Fluid processing stays in suitable Space Age crushers. **K2SO is optional**: Razi More Asteroids also works with Space Age alone.
+Compatible dry asteroid recipes can also run in K2SO crushers. Fluid processing stays in suitable Space Age crushers. **K2SO is optional**: Razi More Asteroids works with Space Age + RaziLib alone.
 
 ## Requirements
 
-**Factorio 2.1 and Space Age.** Original More Asteroids cannot be enabled alongside this fork. Krastorio 2: Spaced Out is optional.
+**Factorio 2.1, Space Age and [RAZI Library](https://mods.factorio.com/mod/razi_lib) 1.3.1+.** Original More Asteroids cannot be enabled alongside this fork. Krastorio 2: Spaced Out is optional.
 
 Other overhaul mods can supply their own additional planet, route, and quality integrations. This mod does not change RP3-specific planets or quality systems.
 

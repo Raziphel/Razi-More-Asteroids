@@ -11,6 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 metadata=json.loads((ROOT/"info.json").read_text())
 assert metadata["version"]=="1.0.0"
 assert metadata["factorio_version"]=="2.1"
+assert "razi_lib >= 1.3.1" in metadata["dependencies"]
 assert any(d.startswith("space-age ") for d in metadata["dependencies"])
 assert any(d.startswith("? Krastorio2-spaced-out ") for d in metadata["dependencies"])
 assert "! More-Asteroids" in metadata["dependencies"]
@@ -44,7 +45,7 @@ for line in lines[3:]:
 
 suites=[
     "smoke.py","test_space_age_compat.py","test_k2so_integration.py",
-    "test_k2so_extended.py","test_asteroid_art.py",
+    "test_k2so_extended.py","test_razilib_integration.py","test_asteroid_art.py",
 ]
 for filename in suites:
     subprocess.run([sys.executable,str(ROOT/"tools"/filename)],check=True)
@@ -58,5 +59,5 @@ with ZipFile(p) as z:
     assert any(x.endswith("/LICENSE") for x in names)
     assert len([x for x in names if "/graphics/icons/" in x])==42
     assert len([x for x in names if "/graphics/entity/asteroid/" in x])==30
-print("PASS: candidate package, 2.1 metadata, changelog, icons, five test suites")
-print("PENDING: Factorio 2.1 engine loading in Space Age and Space Age + K2SO")
+print("PASS: candidate package, 2.1 metadata, changelog, icons, six test suites")
+print("PENDING: Factorio 2.1 engine loading in Space Age + RaziLib, with and without K2SO")

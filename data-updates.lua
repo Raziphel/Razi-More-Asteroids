@@ -1,30 +1,26 @@
--- Space Age/K2SO shared integration. The engine loads this during
--- data-updates automatically; never import it from data.lua.
+-- Native Space Age research policy, implemented through RaziLib's
+-- idempotent data-stage helpers. The external library makes no changes itself.
+local Settings = require("__razi_lib__/lib/settings")
+local Technology = require("__razi_lib__/lib/technology")
+local Recipe = require("__razi_lib__/lib/recipe")
+
+-- Never replace an existing machine's fluid ports.
 require("prototypes.compat.k2so_fluids")
 
-local route_option = settings and settings.startup and
-  settings.startup["razi-more-asteroids-extended-routes"]
-if route_option == nil or route_option.value == true then
+if Settings.enabled("razi-more-asteroids-extended-routes", true) then
   require("prototypes.compat.space_age_spawns")
 end
 
-local technologies = data.raw.technology or {}
-local recipes = data.raw.recipe or {}
-local function unlock(technology, recipe)
-  local tech = technologies[technology]
-  if not tech or not recipes[recipe] then return false end
-  tech.effects = tech.effects or {}
-  for _, effect in ipairs(tech.effects) do
-    if effect.type == "unlock-recipe" and effect.recipe == recipe then
-      return true
-    end
-  end
-  tech.effects[#tech.effects+1] = {type="unlock-recipe",recipe=recipe}
+local function unlock(technology_name, recipe_name)
+  if not Recipe.exists(recipe_name) then return false end
+  local technology = Technology.optional(technology_name)
+  if not technology then return false end
+  technology:unlock(recipe_name)
   return true
 end
 
--- Planet discoveries own the ordinary mineral / life resources; no special
--- RP3 or third-party technology is assumed.
+-- Basic asteroid processing follows the standard Space Age discoveries.
+-- If another mod removes a technology, use advanced asteroid processing.
 local basics = {
   {"uranium-asteroid-crushing", "space-platform"},
   {"crystalline-asteroid-crushing", "space-platform"},
@@ -34,40 +30,34 @@ local basics = {
   {"chemical-asteroid-crushing", "planet-discovery-aquilo"}
 }
 for _, entry in ipairs(basics) do
-  if not unlock(entry[2],entry[1]) then
-    unlock("advanced-asteroid-processing",entry[1])
-  end
-end
-local families = {"uranium","crystalline","rock","scrap","organic","chemical"}
-for _, material in ipairs(families) do
-  local recipe = "advanced-" .. material .. "-asteroid-crushing"
-  if material == "chemical" then
-    if not unlock("planet-discovery-aquilo",recipe) then
-      unlock("advanced-asteroid-processing",recipe)
-    end
-  else
-    unlock("advanced-asteroid-processing",recipe)
+  if not unlock(entry[2], entry[1]) then
+    unlock("advanced-asteroid-processing", entry[1])
   end
 end
 
--- Exact recipe references, idempotent even if a compatibility mod touched
--- productivity research in an earlier data stage.
-local productivity = technologies["asteroid-productivity"]
-if productivity then
-  productivity.effects = productivity.effects or {}
-  local exists = {}
-  for _, effect in ipairs(productivity.effects) do
-    if effect.type == "change-recipe-productivity" then
-      exists[effect.recipe] = true
-    end
+local families = {"uranium", "crystalline", "rock", "scrap", "organic", "chemical"}
+for _, material in ipairs(families) do
+  local name = "advanced-" .. material .. "-asteroid-crushing"
+  if material ~= "chemical" or not unlock("planet-discovery-aquilo", name) then
+    unlock("advanced-asteroid-processing", name)
   end
+end
+
+-- Avoid duplicate research effects on repeated passes or other mod edits.
+local productivity = Technology.optional("asteroid-productivity")
+if productivity then
   for _, material in ipairs(families) do
-    for _, prefix in ipairs({"","advanced-"}) do
-      local name = prefix .. material .. "-asteroid-crushing"
-      if recipes[name] and not exists[name] then
-        productivity.effects[#productivity.effects+1] =
-          {type="change-recipe-productivity",recipe=name,change=0.1}
-        exists[name] = true
+    for _, prefix in ipairs({"", "advanced-"}) do
+      local recipe_name = prefix .. material .. "-asteroid-crushing"
+      if Recipe.exists(recipe_name) then
+        productivity:add_effect({
+          type = "change-recipe-productivity",
+          recipe = recipe_name,
+          change = 0.1
+        }, function(effect)
+          return effect.type == "change-recipe-productivity"
+            and effect.recipe == recipe_name
+        end)
       end
     end
   end

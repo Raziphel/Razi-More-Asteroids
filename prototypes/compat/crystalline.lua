@@ -2,7 +2,7 @@
 -- Other K2SO compatibility mods can rename kr-sand -> sand; never leave
 -- missing result prototypes in the original crystalline crushing recipes.
 local items = data.raw.item or {}
-local recipes = data.raw.recipe or {}
+local Recipe = require("__razi_lib__/lib/recipe")
 local sand = items["kr-sand"] and "kr-sand" or (items["sand"] and "sand")
 local quartz = items["kr-quartz"] and "kr-quartz"
 local ore = items["kr-rare-metal-ore"] and "kr-rare-metal-ore"
@@ -20,17 +20,16 @@ local function append(results, name, amount, probability)
   if result then results[#results + 1] = result end
 end
 
-local basic = recipes["crystalline-asteroid-crushing"]
+local basic = Recipe.optional("crystalline-asteroid-crushing")
 if basic then
   local results = {}
   append(results, sand or stone, 8)
   append(results, quartz or stone, 2)
   append(results, "crystalline-asteroid-chunk", 1, 0.2)
-  basic.results = results
-  basic.main_product = nil
+  basic:set_results(results):set_main_product(nil)
 end
 
-local advanced = recipes["advanced-crystalline-asteroid-crushing"]
+local advanced = Recipe.optional("advanced-crystalline-asteroid-crushing")
 if advanced then
   local results = {}
   append(results, quartz or stone, 4)
@@ -38,8 +37,7 @@ if advanced then
   -- source once advanced asteroid processing has been researched.
   append(results, ore, 1, 0.2)
   append(results, "crystalline-asteroid-chunk", 1, 0.05)
-  advanced.results = results
-  advanced.main_product = nil
+  advanced:set_results(results):set_main_product(nil)
 end
 
 if type(log) == "function" and (not sand or not quartz or not ore) then

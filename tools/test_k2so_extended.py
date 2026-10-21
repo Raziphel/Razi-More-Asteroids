@@ -33,20 +33,20 @@ for name,items in expected.items():
     assert locale.count(name+"=")==2, name
     for item in items: assert '"'+item+'"' in extended
 assert 'if not valid(ingredients) or not valid(results)' in extended
-assert 'technologies["advanced-asteroid-processing"]' in extended
+assert 'Technology.optional("advanced-asteroid-processing")' in extended
 assert 'type="unlock-recipe"' in extended
 assert 'type="change-recipe-productivity"' in extended
 assert 'items["kr-sand"]' in extended and 'items["sand"]' in extended
 assert 'if not recipes[name]' in extended
 
 crusher=read("prototypes/compat/k2so_crushers.lua")
-assert 'furnaces["kr-crusher"]' in crusher
-assert 'cat == "kr-crushing"' in crusher
-assert 'component.type == "fluid"' in crusher
-assert 'not contains_fluid(recipe)' in crusher
-assert 'recipe.categories = cats' in crusher
+assert '(data.raw.furnace or {})["kr-crusher"]' in crusher
+assert 'category == "kr-crushing"' in crusher
+assert 'ingredient.type == "fluid"' in crusher
+assert 'not contains_fluid(recipe:raw())' in crusher
+assert 'recipe:add_category("kr-crushing")' in crusher
 assert 'recipe.category = nil' not in crusher
-assert 'append("kr-crushing")' in crusher
+assert 'local Recipe = require("__razi_lib__/lib/recipe")' in crusher
 assert '"razi-orbital-scrap-sorting"' in crusher
 assert 'data.raw["recipe-category"]' in crusher
 

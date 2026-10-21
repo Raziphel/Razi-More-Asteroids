@@ -9,10 +9,12 @@ Run `python3 tools/release_check.py`. It verifies Factorio 2.1 recipe fields, de
 
 ## Required manual startup tests
 
-- [ ] Factorio **2.1.20+ with Space Age only**, clean mod configuration: reaches main menu with no prototype errors.
+- [ ] Confirm **razi_lib >= 1.3.1** is installed and Factorio recognizes it as a required dependency.
+
+- [ ] Factorio **2.1.20+ with Space Age and RaziLib only**, clean mod configuration: reaches main menu with no prototype errors.
 - [ ] New Space Age game: Nauvis and vanilla space routes display additional asteroid populations, no duplicate/prototype errors.
 - [ ] Space Age crystalline basic/advanced crushing uses only vanilla items and fluids; processing works in a fluid-equipped crusher.
-- [ ] Repeat loading and crafting with **Krastorio2-spaced-out 2.0.17+** installed.
+- [ ] Repeat loading and crafting with **Krastorio2-spaced-out 2.0.17+** installed alongside RaziLib.
 - [ ] Confirm all **eight** optional K2SO orbital recipes appear after Advanced Asteroid Processing and have functional ingredients, inputs and outputs.
 - [ ] K2SO ground crusher handles dry recipes. **Wet recipes must not appear** in dry-only K2SO machine selections.
 - [ ] Inspect a physical space platform's crusher fluid inputs and outputs (including uranium, chemicals, and extra K2SO recipes).

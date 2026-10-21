@@ -1,10 +1,11 @@
+local Technology = require("__razi_lib__/lib/technology")
 -- K2SO-only specialty recipes. Each entry is independently guarded so
 -- optional K2SO forks can remove a product without crashing the data stage.
 -- Respect the existing advanced-asteroid-processing unlock and productivity.
 local items,fluids,recipes,technologies =
   data.raw.item or {}, data.raw.fluid or {}, data.raw.recipe or {},
   data.raw.technology or {}
-local tech=technologies["advanced-asteroid-processing"]
+local tech=Technology.optional("advanced-asteroid-processing")
 if not tech then return end
 local function item(name, amount, chance)
   local v={type="item",name=name,amount=amount}
@@ -21,13 +22,11 @@ local function valid(specs)
   end
   return true
 end
-local function effect_once(technology,effect)
+local function effect_once(technology, effect)
   if not technology then return end
-  technology.effects=technology.effects or {}
-  for _,prior in ipairs(technology.effects) do
-    if prior.type==effect.type and prior.recipe==effect.recipe then return end
-  end
-  technology.effects[#technology.effects+1]=effect
+  technology:add_effect(effect, function(existing)
+    return existing.type == effect.type and existing.recipe == effect.recipe
+  end)
 end
 local function register(name,icon,order,ingredients,results,seconds)
   if not valid(ingredients) or not valid(results) then
@@ -48,7 +47,7 @@ local function register(name,icon,order,ingredients,results,seconds)
     }})
   end
   effect_once(tech,{type="unlock-recipe",recipe=name})
-  effect_once(technologies["asteroid-productivity"],{
+  effect_once(Technology.optional("asteroid-productivity"),{
     type="change-recipe-productivity",recipe=name,change=0.1
   })
 end

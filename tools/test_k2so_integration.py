@@ -22,8 +22,8 @@ crystal = read("prototypes/compat/crystalline.lua")
 assert 'items["kr-sand"]' in crystal and 'items["sand"]' in crystal
 assert 'items["kr-quartz"]' in crystal
 assert 'items["kr-rare-metal-ore"]' in crystal
-assert 'basic.results = results' in crystal
-assert 'advanced.results = results' in crystal
+assert 'basic:set_results(results):set_main_product(nil)' in crystal
+assert 'advanced:set_results(results):set_main_product(nil)' in crystal
 
 recipes = read("prototypes/compat/k2so_recipes.lua")
 names = [
