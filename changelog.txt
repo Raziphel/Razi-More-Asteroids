@@ -1,3 +1,14 @@
+Version: 0.7.0
+Date: 21. 10. 2026
+  Features:
+    - Use K2SO ground crushers for compatible dry asteroid recipes without altering the machine.
+    - Add guarded orbital scrap components, hydrogen, oxygen and wet quartz processing.
+    - Keep special recipes behind advanced asteroid processing.
+  Compatibility:
+    - Never add fluid recipes to K2SO's dry-only crushers.
+    - Respect existing K2SO resources, research and ore refining.
+    - Preserve standalone Space Age use when K2SO is not loaded.
+---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 21. 10. 2026
   Features:

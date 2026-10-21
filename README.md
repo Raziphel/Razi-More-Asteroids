@@ -28,12 +28,21 @@ Crystalline replaces Petrified, including its prototypes and artwork. Back up sa
 
 When K2SO is installed, Crystalline yields sand and quartz instead of the vanilla mineral fallback. Basic crystalline crushing gives 8 sand and 2 quartz. Advanced crushing consumes sulfuric acid and yields 4 quartz plus a small rare-metal ore chance.
 
-Four specialty recipes unlock through advanced asteroid processing:
+Eight specialty recipes unlock through advanced asteroid processing:
 
 - Crystalline leaching: 3 crystalline chunks + 75 sulfuric acid produces 1 raw rare-metal ore and 4 quartz.
 - Rock rare-metal recovery: 2 rock chunks + 30 sulfuric acid produces 6 stone and a 35% chance for raw rare-metal ore.
 - Organic biomass: 2 organic chunks + 5 nutrients produces 3 K2SO biomass and 5 spoilage.
 - Chemical extraction: 2 chemical chunks + 50 water produces 30 K2SO mineral water and 2 sulfur.
+
+Additional K2SO-only processing after advanced asteroid research:
+
+- Scrap sorting: 3 scrap chunks gives 6 scrap plus chances for K2SO electronic components and inserter parts.
+- Hydrogen recovery: 2 chemical chunks + 50 water gives 30 hydrogen and 2 sulfur.
+- Oxygen recovery: 2 chemical chunks + 50 water gives 30 oxygen and 2 sulfur.
+- Quartz washing: 2 crystalline chunks + 40 water gives 6 quartz and 4 sand.
+
+The K2SO ground crusher also supports DRY regular asteroid crushing and dry scrap sorting. Fluid-input or fluid-output recipes stay exclusive to fluid-capable Space Age crushers, and the K2SO machine's own fluid boxes are never modified.
 
 Each specialized recipe is registered only when its ingredient/result prototypes exist. Other K2SO compatibility mods may rename kr-sand to sand, which is resolved at final-fixes. Ore still requires K2SO refining. No imersite, free science, or planetary endgame skips.
 
@@ -42,7 +51,7 @@ Each specialized recipe is registered only when its ingredient/result prototypes
 | Setting | Default | Meaning |
 | --- | --- | --- |
 | Space Age asteroid routes | On | Add asteroids only on native Space Age locations and routes. Internal setting name retained for existing saves. |
-| K2SO orbital resource recovery | On | Enable the four specialized recipes when K2SO is installed. No effect without K2SO. |
+| K2SO orbital resource recovery | On | Enable the eight specialized recipes when K2SO is installed. No effect without K2SO. |
 
 ## Integration boundary
 

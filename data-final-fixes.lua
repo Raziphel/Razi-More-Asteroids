@@ -7,7 +7,10 @@ if mods and mods["Krastorio2-spaced-out"] then
   require("prototypes.compat.crystalline")
   if not option or option.value == true then
     require("prototypes.compat.k2so_recipes")
+    require("prototypes.compat.k2so_extended_recipes")
   end
+  -- Existing ground K2SO crushers can perform dry asteroid processing.
+  require("prototypes.compat.k2so_crushers")
 else
   -- No K2SO item IDs in the final Space Age recipe prototypes.
   require("prototypes.compat.space_age_recipes")
