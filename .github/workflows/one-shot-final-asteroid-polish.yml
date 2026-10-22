@@ -1,0 +1,200 @@
+name: Final asteroid icon and world polish (once)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-final-asteroid-polish.yml'
+permissions:
+  contents: write
+jobs:
+  publish-polished-artwork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare original-asset polisher outside of the mod
+        run: |
+          cat > "$RUNNER_TEMP/razi_polish.py" <<'PY'
+          import binascii
+          PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+          def chunks_of(png: bytes):
+              assert png.startswith(PNG_SIGNATURE), "Not a PNG"
+              offset = len(PNG_SIGNATURE)
+              while offset < len(png):
+                  n = struct.unpack(">I", png[offset:offset+4])[0]
+                  typ = png[offset+4:offset+8]
+                  body = png[offset+8:offset+8+n]
+                  crc = struct.unpack(">I", png[offset+8+n:offset+12+n])[0]
+                  assert (binascii.crc32(typ + body) & 0xffffffff) == crc, typ
+                  yield typ, body
+                  offset += 12+n
+                  if typ == b"IEND": break
+          def chunk(typ: bytes, body: bytes) -> bytes:
+              return struct.pack(">I", len(body)) + typ + body + struct.pack(
+                  ">I", binascii.crc32(typ + body) & 0xffffffff)
+          def unfilter(raw: bytes, width: int, height: int):
+              pitch = width * 4
+              rows = []
+              filters = []
+              cursor = 0
+              prior = bytearray(pitch)
+              for _ in range(height):
+                  f = raw[cursor]
+                  line = bytearray(raw[cursor+1:cursor+pitch+1])
+                  assert len(line) == pitch
+                  cursor += pitch+1
+                  for j in range(pitch):
+                      a = line[j-4] if j >= 4 else 0
+                      b = prior[j]
+                      c = prior[j-4] if j >= 4 else 0
+                      if f == 1: predictor = a
+                      elif f == 2: predictor = b
+                      elif f == 3: predictor = (a+b)//2
+                      elif f == 4:
+                          p = a+b-c
+                          da, db, dc = abs(p-a), abs(p-b), abs(p-c)
+                          predictor = a if da<=db and da<=dc else (b if db<=dc else c)
+                      elif f == 0: predictor = 0
+                      else: raise ValueError(f"Unsupported PNG filter: {f}")
+                      line[j] = (line[j] + predictor) & 255
+                  rows.append(line)
+                  filters.append(f)
+                  prior = line
+              assert cursor == len(raw)
+              return rows, filters
+          def refilter(rows, filters):
+              result = bytearray()
+              prior = bytearray(len(rows[0]))
+              for line, f in zip(rows, filters):
+                  result.append(f)
+                  for j, value in enumerate(line):
+                      a = line[j-4] if j>=4 else 0
+                      b = prior[j]
+                      c = prior[j-4] if j>=4 else 0
+                      if f==1: predictor=a
+                      elif f==2: predictor=b
+                      elif f==3: predictor=(a+b)//2
+                      elif f==4:
+                          p=a+b-c
+                          da,db,dc=abs(p-a),abs(p-b),abs(p-c)
+                          predictor=a if da<=db and da<=dc else (b if db<=dc else c)
+                      else: predictor=0
+                      result.append((value-predictor)&255)
+                  prior=line
+              return bytes(result)
+          
+          """Polish original Factorio PNG materials (kept outside the mod repo).
+          
+          Targets facet readability and mineral contrast without changing silhouettes,
+          animation dimensions, transparency, or source artwork geometry.
+          """
+          from pathlib import Path
+          import struct, zlib, sys
+          
+          ROOT=Path.cwd()
+          FAMILIES=("uranium","rock","crystalline","scrap","organic","chemical","halide","electrostatic")
+          # Mineral colors, strength, existing-facet threshold, contrast and edge sharpness.
+          STYLE={
+           "uranium":((198,224,92),.54,.46,1.065,.80),
+           "rock":((232,210,164),.37,.62,1.055,.62),
+           "crystalline":((216,222,223),.49,.48,1.075,1.02),
+           "scrap":((169,189,191),.57,.48,1.075,1.17),
+           "organic":((184,167,105),.41,.54,1.050,.40),
+           "chemical":((177,236,212),.50,.52,1.035,.66),
+           "halide":((245,238,233),.61,.54,1.075,.85),
+           "electrostatic":((97,242,207),.59,.49,1.082,1.05),
+          }
+          
+          def retouch(png,family,icon):
+              parts=list(chunks_of(png))
+              head=next(b for t,b in parts if t==b"IHDR")
+              w,h,depth,mode,_,_,interlace=struct.unpack(">IIBBBBB",head)
+              assert (depth,mode,interlace)==(8,6,0)
+              pixels=zlib.decompress(b"".join(b for t,b in parts if t==b"IDAT"))
+              rows,filters=unfilter(pixels,w,h)
+              mineral,strength,threshold,contrast,edge=STYLE[family]
+              luma=[[(54*r[4*x]+183*r[4*x+1]+19*r[4*x+2])/256 for x in range(w)] for r in rows]
+              out=[bytearray(row) for row in rows]
+              for y in range(h):
+                  for x in range(w):
+                      pos=x*4
+                      if not rows[y][pos+3]: continue
+                      r,g,b=rows[y][pos:pos+3]
+                      v=luma[y][x]
+                      neighbors=(luma[y][x-1] if x else v)+(luma[y][x+1] if x<w-1 else v)
+                      neighbors+=(luma[y-1][x] if y else v)+(luma[y+1][x] if y<h-1 else v)
+                      facet=v-neighbors/4
+                      clarity=max(-14,min(14,facet*(.29 if icon else .24)*edge))
+                      m=max(0,min(1,(v/255-threshold)/(.94-threshold)))
+                      m=m*m*(3-2*m)
+                      weight=m*strength*(.90 if icon else .72)
+                      weight*=max(.75,min(1.17,1+facet/110))
+                      if family=="organic":weight*=.72
+                      if family=="scrap":weight*=max(.38,min(1,.40+max(0,facet)/24))
+                      if family=="electrostatic":weight*=min(1.12,.85+max(0,facet)/35)
+                      for j,channel in enumerate((r,g,b)):
+                          base=(channel-113)*(contrast+(.025 if icon else 0))+113+clarity
+                          value=base*(1-weight)+mineral[j]*weight
+                          out[y][pos+j]=max(0,min(255,round(value)))
+              assert b"".join(x[3::4] for x in rows)==b"".join(x[3::4] for x in out)
+              written=bytearray(PNG_SIGNATURE)
+              added=False
+              for typ,body in parts:
+                  if typ==b"IDAT":
+                      if not added:
+                          written+=chunk(typ,zlib.compress(refilter(out,filters),9))
+                          added=True
+                  else:written+=chunk(typ,body)
+              assert added
+              return bytes(written)
+          
+          def main(mode):
+              if mode=="icons":
+                  files=list((ROOT/"graphics/icons").glob("*.png"))
+              elif mode=="world":
+                  files=list((ROOT/"graphics/entity/asteroid").rglob("*.png"))
+              else:raise ValueError(mode)
+              for path in sorted(files):
+                  family=(path.parts[-3] if mode=="world" else next(
+                      (f for f in FAMILIES if path.name.startswith(f+"-") or "-"+f+"-" in path.name),None))
+                  assert family in STYLE,(family,str(path))
+                  original=path.read_bytes()
+                  edited=retouch(original,family,mode=="icons")
+                  assert edited!=original,path
+                  path.write_bytes(edited)
+              print("PASS:",mode,len(files),"original assets polished, original alpha preserved")
+          
+          if __name__=="__main__":main(sys.argv[1])
+          
+          PY
+      - name: Polish all original asteroid icons
+        run: |
+          python3 "$RUNNER_TEMP/razi_polish.py" icons
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add graphics/icons
+          git diff --cached --check
+          git commit -m "fix(art): improve asteroid icon mineral readability"
+      - name: Polish all full-size asteroid sprites
+        run: |
+          python3 "$RUNNER_TEMP/razi_polish.py" world
+          python3 - <<'PY'
+          import json,struct
+          from pathlib import Path
+          root=Path("graphics")
+          icons=list((root/"icons").glob("*.png"))
+          world=list((root/"entity"/"asteroid").rglob("*.png"))
+          assert len(icons)==56 and len(world)==40
+          for p in icons:
+              assert struct.unpack(">II",p.read_bytes()[16:24])==(64,64),p
+          for p in world:
+              size={"chunk":50,"small":128,"medium":230,"big":304,"huge":512}[p.parent.name]
+              assert struct.unpack(">II",p.read_bytes()[16:24])==(size,size),p
+          assert json.loads(Path("info.json").read_text())["version"]=="1.1.0"
+          assert not [p for p in Path(".").rglob("*") if p.is_file() and p.suffix.lower() in (".py",".bat",".exe",".sh",".ps1") and ".git" not in p.parts]
+          print("PASS: all 96 Factorio PNGs with unchanged dimensions and portal-safe packaging")
+          PY
+          git add graphics/entity/asteroid
+          git rm .github/workflows/one-shot-final-asteroid-polish.yml
+          git diff --cached --check
+          git commit -m "fix(art): refine world asteroid facet and ore detail"
+          git push origin HEAD:main

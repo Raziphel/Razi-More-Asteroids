@@ -34,3 +34,20 @@ repository or its Mod Portal archives.
 **Verification:** compare all 96 assets to their committed predecessor and
 confirm 40 world-sprite dimensions/silhouettes and 56 icon alpha masks.
 Factorio's in-game renderer must still be inspected before publishing.
+
+
+## Final 1.1.0 visual polish
+
+- **Icons first:** All 56 existing UI textures receive a controlled highlight/
+  shadow clarity pass with more visible ore inclusions. They stay at 64×64.
+- **World sprites:** All 40 source asteroid textures receive the same treatment
+  at their native dimensions, with subtler highlights than the icons.
+- **Lighting:** Rock and Biogenic surfaces are less glossy; Dense-Metal,
+  Wreckage and Electrostatic preserve more pronounced normal-map relief.
+- **Material separation:** Uranium has lime mineral specks; Lithic has muted
+  calcite; Dense-Metal has steel-white inclusions; Wreckage retains rust with
+  exposed metal; Biogenic retains muted fungal mottling; Volatile keeps aqua
+  chemical pools; Halide retains lavender-white mineral crusts; Electrostatic
+  retains a deep-blue body with teal conductive inclusions.
+- **Constraints:** No new shapes, no new texture bases, no procedural glow,
+  no dimensions or alpha changes, and no gameplay/recipe alterations.

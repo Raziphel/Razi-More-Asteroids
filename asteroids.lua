@@ -212,11 +212,17 @@
     halide = {{0.96,0.96,1.0},{0.47,0.40,0.66},2.2},
     electrostatic = {{0.90,0.96,1.0},{0.25,0.41,0.67},2.35}
   }
+  local normal_strength = {
+    uranium = 1.18, rock = 1.18, scrap = 1.23, organic = 1.06,
+    chemical = 1.13, crystalline = 1.27, halide = 1.16,
+    electrostatic = 1.24
+  }
   for family,light in pairs(lighting) do
     local shade = asteroids_data[family].shading_data
     shade.lights[1].color = light[1]
     shade.lights[2].color = light[2]
     shade.specular_strength = light[3]
+    shade.normal_strength = normal_strength[family] or shade.normal_strength
   end
 
   local collision_radiuses =
@@ -247,14 +253,10 @@
 
   local letter = {"a","b","c","d","e"}
 
-  -- Source asteroid tints were retained; custom normals use stock Space Age material maps.
-  --color textures for each asteroid are simply copies of each mapped out asteroid with different basic filter options to distinguish them
-  --the filters were done in Windows base Photos app
-  --Rock: Brightness, Exposure, Contrast, Shadow, and Saturation all -50
-  --Uranium: Saturation 100, Warmth 100, Tint -100
-  --chemical: warmth 100, tint -100
-  --organic: exposure 100, saturation 100, warmth 100, tint -100, i think,  i did it then walked away and forgot to write the settings down
-  --crystalline: saturation 100, warmth 100, tint 100
+  -- Original silhouettes and Space Age normal/roughness maps are preserved.
+  -- The color layers use small facet highlights matched to resource outputs.
+  -- The eight material lighting profiles above keep natural rock matte and
+  -- metallic/electrical minerals reflective without exaggerated fake glow.
 
   local asteroid_map = {
     ["scrap"] = "metallic",
