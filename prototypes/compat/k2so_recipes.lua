@@ -26,12 +26,19 @@ local function add_effect(technology, effect)
     return existing.type == effect.type and existing.recipe == effect.recipe
   end)
 end
-local function add(name,icon,order,ingredients,results,energy)
+local function add(name,icon,order,ingredients,results,energy,productivity_allowed)
   if not all_exist(ingredients) or not all_exist(results) then
     if type(log)=="function" then
       log("[Razi More Asteroids] K2SO recipe unavailable: "..name)
     end
     return
+  end
+  -- Do not let native machine productivity amplify any feedback outputs.
+  local allow_productivity = productivity_allowed ~= false
+  if not allow_productivity then
+    for _,result in ipairs(results) do
+      result.ignored_by_productivity = result.amount
+    end
   end
   if not recipes[name] then
     data:extend({{
@@ -40,13 +47,15 @@ local function add(name,icon,order,ingredients,results,energy)
       icon_size=64,categories={"crushing"},subgroup="space-crushing",
       order=order,enabled=false,auto_recycle=false,
       energy_required=energy,ingredients=ingredients,results=results,
-      allow_productivity=true,allow_decomposition=false
+      allow_productivity=allow_productivity,allow_decomposition=false
     }})
   end
   add_effect(advanced,{type="unlock-recipe",recipe=name})
-  add_effect(Technology.optional("asteroid-productivity"),{
-    type="change-recipe-productivity",recipe=name,change=0.1
-  })
+  if allow_productivity then
+    add_effect(Technology.optional("asteroid-productivity"),{
+      type="change-recipe-productivity",recipe=name,change=0.1
+    })
+  end
 end
 
 -- Dense-metal chunks supply raw rare-metal ORE. Existing K2SO refining
@@ -61,10 +70,11 @@ add("razi-crystalline-ore-leaching","advanced-crystalline-asteroid-crushing","b-
   {item("crystalline-asteroid-chunk",3),fluid("sulfuric-acid",75)},
   {item("kr-rare-metal-ore",1),item("tungsten-ore",8)},6)
 
--- Uses nutrients, so the biomass output does not create a free cycle.
+-- Spoilage can be converted into nutrients (including via Rubia).
+-- Keep the recovery recipe, but never multiply its results with productivity.
 add("razi-orbital-biomass-recovery","advanced-organic-asteroid-crushing","b-a-f",
   {item("organic-asteroid-chunk",2),item("nutrients",5)},
-  {item("kr-biomass",3),item("spoilage",5)},5)
+  {item("kr-biomass",3),item("spoilage",5)},5,false)
 
 -- Supplement planetary mineral-water extraction; never replace it.
 add("razi-orbital-mineral-water-recovery","advanced-chemical-asteroid-crushing","b-a-g",

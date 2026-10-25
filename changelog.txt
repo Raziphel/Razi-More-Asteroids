@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+Date: 25. 10. 2026
+  Bugfixes:
+    - Prevent orbital biomass recovery from feeding productivity-amplified nutrient loops.
+    - Disable its productivity research bonus and protect results from machine productivity.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 22. 10. 2026
   Graphics:
