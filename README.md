@@ -2,7 +2,7 @@
 
 A Factorio **2.1 Space Age** mod with **eight distinct asteroid families** using updated versions of the original More Asteroids graphics. Based on the MIT-licensed original by spartanlaser32.
 
-**Requires:** Space Age 2.1.20+ and [RAZI Library](https://mods.factorio.com/mod/razi_lib) 1.3.1+. **Optional:** Krastorio 2: Spaced Out (K2SO) 2.0.17+. Does not require Razi Protocol.
+**Requires:** Space Age 2.1.20+ and [RAZI Library](https://mods.factorio.com/mod/razi_lib) 1.3.1+. **Optional:** Krastorio 2: Spaced Out (K2SO) 2.0.17+ and Muluna 2.5.0+ (with Quality). Does not require Razi Protocol.
 
 ## Eight orbital resources
 
@@ -42,6 +42,14 @@ K2SO expands processing without replacing its normal industry or providing free 
 
 All eight optional specialty recipes require valid K2SO prototypes and the relevant processing research. Dry recipes can run in compatible K2SO crushers; wet recipes remain in fluid-capable crushers. The mod does not modify K2SO's own recipe balances.
 
+## Processing that matches Space Age
+
+**Reprocessing:** all eight custom families can be reprocessed once the vanilla **Asteroid reprocessing** technology is researched. Each recipe uses the same exclusive outcomes as vanilla: 40% to keep the input chunk, 20% for either of two thematically related families, and 20% loss. Reprocessing does not create extra materials, use productivity, or permit quality modules. It does not replace Space Age's original three reprocessing recipes.
+
+**Muluna upcycling:** when `planet-muluna` and Quality are both installed, all eight custom chunks become valid targets for Muluna's **Asteroid upcycling** research. The new recipes consume the existing astronomical-data fluid and use Muluna's own Crusher 2, quality rolls, loss rate and optional Rigor settings. Dense-Metal, Halide and Electrostatic use 2 astronomical data per craft; other families use 1. No Muluna-only items or recipes appear without Muluna.
+
+**Icons:** crushing, advanced crushing, reprocessing, upcycling and K2SO-specialty recipe icons now composite the actual input-chunk graphic with the full-color icons of the materials returned. Iron stays iron-colored, copper stays copper-colored, and fluid icons keep their own palette. We no longer tint every ingredient the same color as the asteroid.
+
 ## Original artwork, refreshed
 
 All eight families reuse the original asteroid geometry. Two new sets of variants were made by modifying existing Chemical and Crystalline textures rather than using generated artwork. Dense-Metal, Volatile, Halide and Electrostatic have distinctive updated shading. Icons are 64×64; the Mod Portal thumbnail is 144×144.
@@ -59,10 +67,10 @@ The source repository contains **no** `.py`, `.sh`, `.bat`, `.ps1`, or `.exe` fi
 
 ```sh
 mkdir -p dist
-git archive --format=zip --prefix=razi-more-asteroids_1.1.0/ -o dist/razi-more-asteroids_1.1.0.zip HEAD info.json LICENSE changelog.txt thumbnail.png settings.lua data.lua data-updates.lua data-final-fixes.lua asteroids.lua recipe.lua item.lua more-asteroids-spawn-definitions.lua locale graphics prototypes
+git archive --format=zip --prefix=razi-more-asteroids_1.2.0/ -o dist/razi-more-asteroids_1.2.0.zip HEAD info.json LICENSE changelog.txt thumbnail.png settings.lua data.lua data-updates.lua data-final-fixes.lua asteroids.lua recipe.lua item.lua more-asteroids-spawn-definitions.lua locale graphics prototypes
 ```
 
-Check the ZIP contents before uploading. Factorio 2.1 in-game load/crafting tests are still required with Space Age + RaziLib, both with and without K2SO. See `docs/RELEASE_CHECKLIST.md`. This repository has not automatically published the mod to the Mod Portal.
+Check the ZIP contents before uploading. Factorio 2.1 in-game load/crafting tests are still required with Space Age + RaziLib, with and without K2SO and Muluna/Quality. In particular, check reprocessing probability, quality upgrades, and the dynamically composed icons. See `docs/RELEASE_CHECKLIST.md`. This repository has not automatically published the mod to the Mod Portal.
 
 ## Original credits
 

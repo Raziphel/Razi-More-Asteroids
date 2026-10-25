@@ -1,11 +1,11 @@
 # First-public-release verification
 
-Candidate ZIP: `dist/razi-more-asteroids_1.1.0.zip`
+Candidate ZIP: `dist/razi-more-asteroids_1.2.0.zip`
 Status: **package-ready, engine validation pending**. Do not claim a completed in-game test until performed.
 
 ## Packaging gate
 
-Build with the `git archive` command in README.md, using only the explicitly listed Factorio files. Check the ZIP root is `razi-more-asteroids_1.1.0/` and that `unzip -l` shows no `.exe`, `.bat`, `.ps1`, `.sh`, or `.py` entries. Developer scripts are maintained outside this mod repository. This packaging check is not an in-game test.
+Build with the `git archive` command in README.md, using only the explicitly listed Factorio files. Check the ZIP root is `razi-more-asteroids_1.2.0/` and that `unzip -l` shows no `.exe`, `.bat`, `.ps1`, `.sh`, or `.py` entries. Developer scripts are maintained outside this mod repository. This packaging check is not an in-game test.
 
 ## Required manual startup tests
 
@@ -24,6 +24,19 @@ Build with the `git archive` command in README.md, using only the explicitly lis
 - [ ] Inspect all 56 UI icons, 40 in-world sprites, and 144px thumbnail in-game; check all eight asteroid families for missing graphics.
 - [ ] Verify a saved game can be reopened; back up any existing save with Crystalline prototypes now displayed as Dense-Metal and changed outputs.
 - [ ] Validate science progression and reasonable availability without unlocking high-tier resources too early.
+
+
+## New processing and compatibility tests (1.2.0)
+
+- [ ] Inspect all 16 custom crushing/advanced crushing recipe icons and all 8 new reprocessing icons. Distinct materials must use their actual, untinted sprite colors.
+- [ ] Research Asteroid reprocessing and confirm eight custom recipes are unlocked in the native crusher without replacing the vanilla three.
+- [ ] Test one reprocessing recipe over many crafts: the return/alternative/loss rates approximate 40/20/20/20, with **at most one chunk** output per craft.
+- [ ] Confirm reprocessing never accepts productivity or quality modules, and doesn't create material or quality loops.
+- [ ] Load with Muluna 2.5.0+ and Quality: confirm eight additional Muluna Asteroid upcycling recipes appear under the **existing** technology and use astronomical-data fluid in Crusher 2.
+- [ ] Verify Muluna upcycling consumes 1 astronomical data except Dense-Metal, Halide and Electrostatic (2 data). Its normal output retains quality, upgraded output gains exactly one level, and the 50% loss is still present.
+- [ ] Repeat Muluna tests with Rigor installed and confirm the cloned Muluna quality chance and Rigor metadata match the template.
+- [ ] Load **without Muluna**, and **without Quality** where supported, to confirm none of its upcycling content appears and the mod still starts normally.
+- [ ] Repeat with Muluna + K2SO, watch for recipe conflicts/hidden outputs, and compare optional K2SO icons with actual recipe products.
 
 ## Publication procedure
 

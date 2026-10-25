@@ -51,3 +51,16 @@ Factorio's in-game renderer must still be inspected before publishing.
   retains a deep-blue body with teal conductive inclusions.
 - **Constraints:** No new shapes, no new texture bases, no procedural glow,
   no dimensions or alpha changes, and no gameplay/recipe alterations.
+
+
+## 1.2.0 recipe icon composition
+
+Recipe icons are no longer separately tinted copies of the asteroid chunk.
+`prototypes/compat/recipe_icons.lua` layers the full-color icons of actual
+output item/fluid prototypes onto the source chunk icon during data-final-fixes.
+This supports changes made by K2SO and other processing integrations without
+building a unique tinted PNG for each output combination.
+
+Keep world-space asteroid textures and normal/roughness maps unchanged when
+improving **recipe** icons. Make sure the distinct metallic, mineral, organic and
+chemical products remain readable at normal Factorio UI scale.

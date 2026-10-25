@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 26. 10. 2026
+  Graphics:
+    - Compose normal, advanced, and optional K2SO crushing icons from actual product sprites.
+    - Preserve ore, material and fluid colors rather than tinting all components like their asteroid chunks.
+  Features:
+    - Add native-style reprocessing for all eight asteroid families with exclusive 40/20/20/20 outcomes.
+  Compatibility:
+    - Integrate all eight chunk types into Muluna's astronomical-data asteroid upcycling technology.
+    - Preserve Muluna's existing quality chance, chunk-loss rate and Rigor module compatibility.
+    - Keep Muluna and quality optional, without touching vanilla or other mods' recipes.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 Version: 1.1.2
 Date: 25. 10. 2026
   Bugfixes:
