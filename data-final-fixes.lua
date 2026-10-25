@@ -37,3 +37,12 @@ for _, name in ipairs(specialties) do
   local recipe = Recipe.optional(name)
   if recipe then Recipe.normalize_2_1(recipe:raw()) end
 end
+
+
+-- Extend the native asteroid-reprocessing technology, and optionally use
+-- Muluna's own quality/data mechanics once all other recipes are registered.
+require("prototypes.compat.asteroid_reprocessing")
+require("prototypes.compat.muluna_upcycling")
+
+-- Compose recipe icons last so K2SO and other output changes are visible.
+require("prototypes.compat.recipe_icons")
