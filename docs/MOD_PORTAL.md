@@ -1,17 +1,15 @@
-# Razi More Asteroids 1.2.1
+# Razi More Asteroids 1.2.2
 
 **Eight additional asteroid families for Factorio: Space Age.** Discover Radioactive, Lithic, Dense-Metal, Wreckage, Biogenic, Volatile, Halide and Electrostatic asteroids alongside the vanilla types.
 
 Each family adds collectible chunks, hostile asteroid sizes, and its own basic and advanced crushing recipes. Different asteroids offer different resources, making space-platform resource recovery a more useful part of your factory.
 
-## What's new in 1.2.1
+## What's new in 1.2.2
 
-- Restored detailed original More Asteroids artwork for the Chemical, Organic, Rock, Scrap and Uranium families.
-- Refined Crystalline, Halide and Electrostatic with small, distinctive mineral inclusions instead of blanket recolouring.
-- Corrected asteroid lighting so entire asteroids no longer receive an unwanted family-coloured wash.
-- Kept the original texture shading, crushing arrows and material details intact.
+- Fix standalone Space Age recipe validation so it recognizes non-item prototypes, including Yumako and Jellynut capsules.
+- Prevent false missing-prototype errors when running without Krastorio 2: Spaced Out.
 
-This is a **graphics and lighting patch**. No production rates, unlocks, or recipe balances were changed from 1.2.0.
+This is a **compatibility bugfix**. There are no recipe balance or progression changes. Version 1.2.1 restored the original detailed asteroid artwork, refined only the custom mineral accents and corrected unwanted whole-asteroid colour casts.
 
 ## Eight industrial identities
 

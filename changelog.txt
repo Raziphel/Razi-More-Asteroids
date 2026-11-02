@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 02. 11. 2026
+  Bugfixes:
+    - Fix false missing-prototype errors in standalone Space Age recipe validation.
+    - Recognize non-item prototype types such as Yumako and Jellynut capsules when K2SO is not installed.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 02. 11. 2026
   Graphics:
