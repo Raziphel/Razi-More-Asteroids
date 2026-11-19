@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.3
+Date: 19. 11. 2026
+  Features:
+    - Add Russian translations for mod settings and recipe names and descriptions.
+  Compatibility:
+    - Give Muluna's Crusher 2 and compatible copies normal fluid connections for wet asteroid crushing while preserving the astronomical-data port.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 02. 11. 2026
   Bugfixes:
@@ -17,7 +24,6 @@ Date: 02. 11. 2026
   Info:
     - Update original-art credits, release instructions, and graphics verification documentation.
 ---------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 26. 10. 2026
   Graphics:
@@ -29,7 +35,6 @@ Date: 26. 10. 2026
     - Integrate all eight chunk types into Muluna's astronomical-data asteroid upcycling technology.
     - Preserve Muluna's existing quality chance, chunk-loss rate and Rigor module compatibility.
     - Keep Muluna and quality optional, without touching vanilla or other mods' recipes.
----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.2
 Date: 25. 10. 2026

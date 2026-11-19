@@ -79,13 +79,13 @@ the Factorio Mod Portal ZIP. See [Asteroid art direction](docs/ART_DIRECTION.md)
 
 ## Packaging and release
 
-**Current release: 1.2.2.** This patch fixes standalone Space Age recipe validation for non-item prototype types (including Yumako and Jellynut capsules) when K2SO is not installed. The restored graphics from 1.2.1 and reprocessing/upcycling gameplay introduced in 1.2.0 are unchanged.
+**Current release: 1.2.3.** Adds Russian translations and gives Muluna's Crusher 2 normal fluid connections for wet asteroid crushing while preserving its astronomical-data port.
 
-The repository includes a developer-only Python art generator, but the release ZIP must **exclude** scripts and workflows. Package version 1.2.2 using the explicit allowlist:
+The repository includes a developer-only Python art generator, but the release ZIP must **exclude** scripts and workflows. Package version 1.2.3 using the explicit allowlist:
 
 ```sh
 mkdir -p dist
-git archive --format=zip --prefix=razi-more-asteroids_1.2.2/ -o dist/razi-more-asteroids_1.2.2.zip HEAD info.json LICENSE changelog.txt thumbnail.png settings.lua data.lua data-updates.lua data-final-fixes.lua asteroids.lua recipe.lua item.lua more-asteroids-spawn-definitions.lua locale graphics prototypes
+git archive --format=zip --prefix=razi-more-asteroids_1.2.3/ -o dist/razi-more-asteroids_1.2.3.zip HEAD info.json LICENSE changelog.txt thumbnail.png settings.lua data.lua data-updates.lua data-final-fixes.lua asteroids.lua recipe.lua item.lua more-asteroids-spawn-definitions.lua locale graphics prototypes
 ```
 
 Check the ZIP contents before uploading. Factorio 2.1 in-game load/crafting tests are still required with Space Age + RaziLib, with and without K2SO and Muluna/Quality. In particular, check reprocessing probability, quality upgrades, and the dynamically composed icons. See `docs/RELEASE_CHECKLIST.md`. This repository has not automatically published the mod to the Mod Portal.

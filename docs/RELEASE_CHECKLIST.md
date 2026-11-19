@@ -1,11 +1,11 @@
-# Razi More Asteroids 1.2.2 release verification
+# Razi More Asteroids 1.2.3 release verification
 
-Candidate ZIP: `dist/razi-more-asteroids_1.2.2.zip`
-Status: **package-ready, engine validation pending**. Do not claim a completed in-game test until performed.
+Candidate ZIP: `dist/razi-more-asteroids_1.2.3.zip`
+Status: **packaging and engine validation pending**. Do not claim a completed in-game test until performed.
 
 ## Packaging gate
 
-Build with the `git archive` command in README.md, using only the explicitly listed Factorio files. Check the ZIP root is `razi-more-asteroids_1.2.2/` and that `unzip -l` shows no `.exe`, `.bat`, `.ps1`, `.sh`, or `.py` entries. The development repository includes a Python art generator, but the release archive must exclude it. This packaging check is not an in-game test.
+Build with the `git archive` command in README.md, using only the explicitly listed Factorio files. Check the ZIP root is `razi-more-asteroids_1.2.3/` and that `unzip -l` shows no `.exe`, `.bat`, `.ps1`, `.sh`, or `.py` entries. The development repository includes a Python art generator, but the release archive must exclude it. This packaging check is not an in-game test.
 
 ## Required manual startup tests
 
@@ -19,6 +19,7 @@ Build with the `git archive` command in README.md, using only the explicitly lis
 - [ ] Confirm all **eight** optional K2SO orbital recipes appear after Advanced Asteroid Processing and have functional ingredients, inputs and outputs.
 - [ ] K2SO ground crusher handles dry recipes. **Wet recipes must not appear** in dry-only K2SO machine selections.
 - [ ] Inspect a physical space platform's crusher fluid inputs and outputs (including uranium, chemicals, and extra K2SO recipes).
+- [ ] With Muluna and K2SO installed, verify Crusher 2 and compatible copies accept wet crushing inputs and outputs through normal pipes while astronomical data still uses its data port.
 - [ ] Test optional **K2SO Recovery = Off**: specialty recipes absent; basic Dense-Metal tungsten outputs still work.
 - [ ] Test **Space Age routes = Off**: family prototypes still exist; extra location/route populations do not.
 - [ ] Optional: load with Null's K2SO Tweaks and Any Planet Start, if installed, and check that nothing resets their fields.
@@ -29,7 +30,7 @@ Build with the `git archive` command in README.md, using only the explicitly lis
 - [ ] Validate science progression and reasonable availability without unlocking high-tier resources too early.
 
 
-## Regression checks for 1.2.0 processing features (still required for 1.2.2)
+## Regression checks for 1.2.0 processing features (still required for 1.2.3)
 
 - [ ] Inspect all 16 custom crushing/advanced crushing recipe icons and all 8 new reprocessing icons. Distinct materials must use their actual, untinted sprite colors.
 - [ ] Research Asteroid reprocessing and confirm eight custom recipes are unlocked in the native crusher without replacing the vanilla three.
