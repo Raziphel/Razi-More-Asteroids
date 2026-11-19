@@ -43,6 +43,7 @@ end
 -- Muluna's own quality/data mechanics once all other recipes are registered.
 require("prototypes.compat.asteroid_reprocessing")
 require("prototypes.compat.muluna_upcycling")
+require("prototypes.compat.muluna_crusher_fluids")
 
 -- Compose recipe icons last so K2SO and other output changes are visible.
 require("prototypes.compat.recipe_icons")
